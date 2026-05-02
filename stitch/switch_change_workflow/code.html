@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for NOC environment */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #0b1326; }
+        ::-webkit-scrollbar-thumb { background: #2d3449; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b3c5ff; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#f8f7ff",
+                        "on-surface": "#dae2fd",
+                        "surface-variant": "#2d3449",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface": "#0b1326",
+                        "primary-container": "#0066ff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "surface-tint": "#b3c5ff",
+                        "inverse-primary": "#0054d6",
+                        "on-secondary": "#213145",
+                        "primary-fixed": "#dae1ff",
+                        "on-surface-variant": "#c2c6d8",
+                        "on-tertiary-container": "#fff6f4",
+                        "on-primary": "#002b75",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#3a4a5f",
+                        "tertiary-container": "#cc4204",
+                        "tertiary": "#ffb59d",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-container": "#171f33",
+                        "inverse-surface": "#dae2fd",
+                        "inverse-on-surface": "#283044",
+                        "on-secondary-container": "#a9bad3",
+                        "surface-container-high": "#222a3d",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-bright": "#31394d",
+                        "surface-dim": "#0b1326",
+                        "on-tertiary": "#5d1900",
+                        "outline": "#8c90a1",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-tertiary-fixed": "#390c00",
+                        "outline-variant": "#424656",
+                        "on-background": "#dae2fd",
+                        "secondary-fixed": "#d3e4fe",
+                        "background": "#0b1326",
+                        "surface-container-low": "#131b2e",
+                        "surface-container-lowest": "#060e20",
+                        "primary": "#b3c5ff",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-primary-fixed": "#001849",
+                        "error-container": "#93000a",
+                        "secondary": "#b7c8e1",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#2d3449",
+                        "on-secondary-fixed-variant": "#38485d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "margin": "24px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "xs": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-base": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "data-mono": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-base": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased">
+<!-- TopNavBar -->
+<header class="bg-slate-950 docked full-width top-0 z-40 border-b border-slate-800 shadow-none fixed w-full">
+<div class="flex justify-between items-center w-full px-6 h-14 max-w-[1920px] mx-auto font-inter text-sm antialiased">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-tight text-slate-100">NOC Console</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-blue-500 font-semibold cursor-pointer active:opacity-80" href="#">Switches</a>
+<a class="text-slate-400 hover:text-slate-100 transition-colors cursor-pointer active:opacity-80" href="#">Inventory</a>
+<a class="text-slate-400 hover:text-slate-100 transition-colors cursor-pointer active:opacity-80" href="#">Audit Log</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<span class="text-slate-500 font-data-mono text-xs">Scan: 14:02:11</span>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-400 hover:text-slate-100 cursor-pointer transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-slate-100 cursor-pointer transition-colors" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 flex flex-col h-full z-50 overflow-y-auto bg-slate-950 docked left-0 h-screen w-64 border-r border-slate-800 shadow-none pt-14">
+<div class="p-6 border-b border-slate-800">
+<div class="text-blue-500 font-black text-xl">Network Ops</div>
+<div class="text-slate-500 text-[10px] uppercase tracking-widest mt-1">Vigilant System</div>
+</div>
+<nav class="flex-1 py-4">
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 transition-transform active:scale-95 font-inter text-xs font-medium uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 transition-transform active:scale-95 font-inter text-xs font-medium uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="bg-blue-500/10 text-blue-500 border-l-2 border-blue-500 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 transition-transform active:scale-95 font-inter text-xs font-medium uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span>Switches</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 transition-transform active:scale-95 font-inter text-xs font-medium uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Audit Log</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 transition-transform active:scale-95 font-inter text-xs font-medium uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 bg-slate-900/50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-500 text-sm" data-icon="admin_panel_settings">admin_panel_settings</span>
+</div>
+<div>
+<div class="text-[10px] text-slate-100 font-bold">SYS_ADMIN_01</div>
+<div class="text-[9px] text-slate-500">Root Access</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pl-64 pt-14 min-h-screen">
+<div class="max-w-[1920px] mx-auto p-6 grid grid-cols-12 gap-6">
+<!-- Page Header & Safe Mode Indicator -->
+<div class="col-span-12 flex justify-between items-end mb-2">
+<div>
+<div class="flex items-center gap-2 text-slate-500 mb-2 font-data-mono text-xs">
+<span>INFRASTRUCTURE</span>
+<span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
+<span>CORE_SWITCH_04</span>
+<span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-blue-400">PORT CONFIGURATION</span>
+</div>
+<h1 class="text-display-lg font-display-lg text-on-surface">Switch Change Workflow</h1>
+</div>
+<!-- Safe Mode Status -->
+<div class="flex items-center gap-4 bg-surface-container-high border border-outline-variant px-4 py-2 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+<span class="text-label-caps text-on-surface-variant">SAFE MODE ACTIVE</span>
+</div>
+<div class="h-4 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-blue-400 text-sm" data-icon="verified_user">verified_user</span>
+<span class="text-body-sm font-semibold text-blue-400">Level 4 Auth Required</span>
+</div>
+</div>
+</div>
+<!-- Workflow Container (Left Column) -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<!-- Stepper Progress -->
+<div class="bg-surface-container border border-outline-variant rounded p-6">
+<div class="flex items-center justify-between relative">
+<div class="absolute top-1/2 left-0 w-full h-[1px] bg-outline-variant -translate-y-1/2 z-0"></div>
+<!-- Step 1: Active -->
+<div class="relative z-10 flex flex-col items-center gap-2 bg-surface-container px-4">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold border-2 border-primary">01</div>
+<span class="text-label-caps text-primary">SELECT CHANGES</span>
+</div>
+<!-- Step 2: Pending -->
+<div class="relative z-10 flex flex-col items-center gap-2 bg-surface-container px-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold border border-outline-variant">02</div>
+<span class="text-label-caps text-on-surface-variant opacity-60">CONFIRMATION</span>
+</div>
+<!-- Step 3: Pending -->
+<div class="relative z-10 flex flex-col items-center gap-2 bg-surface-container px-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold border border-outline-variant">03</div>
+<span class="text-label-caps text-on-surface-variant opacity-60">EXECUTION</span>
+</div>
+</div>
+</div>
+<!-- Step 1 Content: Configuration Panel -->
+<div class="bg-surface-container border border-outline-variant rounded overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-container-high flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-400" data-icon="settings_ethernet">settings_ethernet</span>
+<span class="font-headline-md text-headline-md">Port modification: GigabitEthernet 1/0/24</span>
+</div>
+<span class="text-body-sm font-data-mono bg-surface p-1 px-2 border border-outline-variant rounded">Status: Up/Connected</span>
+</div>
+<div class="p-6 space-y-8">
+<!-- Port Basic Info -->
+<div class="grid grid-cols-3 gap-6">
+<div class="space-y-2">
+<label class="text-label-caps text-on-surface-variant">VLAN ASSIGNMENT</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded text-on-surface font-data-mono focus:ring-2 focus:ring-primary-container/50">
+<option>VLAN 100 - CORP_DATA</option>
+<option>VLAN 200 - VOICE_IP</option>
+<option selected="">VLAN 300 - SECURITY_CAM</option>
+<option>VLAN 999 - QUARANTINE</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-label-caps text-on-surface-variant">PORT DESCRIPTION</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded text-on-surface font-data-mono focus:ring-2 focus:ring-primary-container/50" type="text" value="SEC-CAM-04-NORTH"/>
+</div>
+<div class="space-y-2">
+<label class="text-label-caps text-on-surface-variant">PORT MODE</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded text-on-surface font-data-mono focus:ring-2 focus:ring-primary-container/50">
+<option selected="">Access</option>
+<option>Trunk (Dot1Q)</option>
+<option>Dynamic Auto</option>
+</select>
+</div>
+</div>
+<!-- Advanced Port Logic -->
+<div class="grid grid-cols-2 gap-8 pt-4">
+<div class="space-y-4">
+<h3 class="text-body-base font-semibold border-l-2 border-blue-500 pl-3">Security &amp; Optimization</h3>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded border border-outline-variant">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">Port Security</span>
+<span class="text-[10px] text-slate-500">Limit MAC addresses (Sticky enabled)</span>
+</div>
+<input checked="" class="rounded border-outline-variant bg-surface text-primary focus:ring-primary h-5 w-5" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded border border-outline-variant">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium">STP PortFast</span>
+<span class="text-[10px] text-slate-500">Immediate forwarding state</span>
+</div>
+<input checked="" class="rounded border-outline-variant bg-surface text-primary focus:ring-primary h-5 w-5" type="checkbox"/>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="text-body-base font-semibold border-l-2 border-blue-500 pl-3">Hardware Parameters</h3>
+<div class="flex items-center gap-4">
+<div class="flex-1">
+<label class="text-[10px] text-on-surface-variant block mb-1">SPEED</label>
+<div class="flex gap-1">
+<button class="flex-1 py-1 px-2 text-[10px] bg-surface-container-lowest border border-outline-variant rounded hover:bg-surface-variant">AUTO</button>
+<button class="flex-1 py-1 px-2 text-[10px] bg-primary-container text-on-primary-container rounded font-bold">1000M</button>
+<button class="flex-1 py-1 px-2 text-[10px] bg-surface-container-lowest border border-outline-variant rounded hover:bg-surface-variant">100M</button>
+</div>
+</div>
+<div class="flex-1">
+<label class="text-[10px] text-on-surface-variant block mb-1">DUPLEX</label>
+<div class="flex gap-1">
+<button class="flex-1 py-1 px-2 text-[10px] bg-primary-container text-on-primary-container rounded font-bold">FULL</button>
+<button class="flex-1 py-1 px-2 text-[10px] bg-surface-container-lowest border border-outline-variant rounded hover:bg-surface-variant">HALF</button>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-caps text-on-surface-variant">POE+ ALLOCATION</label>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden">
+<div class="bg-blue-500 h-full w-[45%]"></div>
+</div>
+<div class="flex justify-between text-[10px] font-data-mono">
+<span>Current: 12.4W</span>
+<span>Limit: 30.0W</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="p-6 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+<button class="px-6 py-2 bg-transparent border border-outline text-on-surface-variant hover:bg-surface-variant transition-colors rounded font-semibold text-body-base">Discard</button>
+<button class="px-8 py-2 bg-primary-container text-on-primary-container hover:bg-blue-600 transition-all rounded font-bold text-body-base shadow-lg shadow-blue-900/20 flex items-center gap-2">
+<span>Stage Changes</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Preview Panel (Hidden for Step 1 Mockup, but styled for layout visualization) -->
+<div class="bg-surface-container border border-outline-variant rounded opacity-40 grayscale pointer-events-none">
+<div class="p-4 flex justify-between items-center border-b border-outline-variant">
+<span class="font-headline-md">Preview: Configuration Diff</span>
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<div class="grid grid-cols-2 p-4 gap-4 h-32">
+<div class="bg-surface-container-lowest border-r border-outline-variant p-2"></div>
+<div class="bg-surface-container-lowest p-2"></div>
+</div>
+</div>
+</div>
+<!-- Side Panels (Right Column) -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Audit Log Panel -->
+<div class="bg-surface-container border border-outline-variant rounded h-fit flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400" data-icon="history_edu">history_edu</span>
+<span class="text-label-caps">PORT EVENT LOG</span>
+</div>
+<span class="text-[10px] font-data-mono text-slate-500 uppercase">Last 24h</span>
+</div>
+<div class="p-0 flex-1 divide-y divide-outline-variant/30 max-h-[500px] overflow-y-auto">
+<!-- Log Item 1 -->
+<div class="p-4 hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-data-mono text-blue-400">08:12:44 AM</span>
+<span class="bg-blue-500/10 text-blue-500 px-1.5 py-0.5 rounded text-[9px] font-bold">CONFIG</span>
+</div>
+<p class="text-body-sm text-on-surface mb-2">Admin <span class="text-blue-400 font-bold">J. Miller</span> changed VLAN from 100 to 300.</p>
+<div class="bg-surface-container-lowest p-2 rounded text-[10px] font-data-mono text-slate-400 border border-outline-variant/50">
+                                - switchport access vlan 100<br/>
+                                + switchport access vlan 300
+                            </div>
+</div>
+<!-- Log Item 2 -->
+<div class="p-4 hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-data-mono text-slate-500">04:02:11 AM</span>
+<span class="bg-surface-container-highest text-slate-400 px-1.5 py-0.5 rounded text-[9px] font-bold">STATUS</span>
+</div>
+<p class="text-body-sm text-on-surface">Port status changed to <span class="text-green-500 font-bold">UP</span>. Link detected.</p>
+</div>
+<!-- Log Item 3 -->
+<div class="p-4 hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-data-mono text-slate-500">Yesterday 11:45 PM</span>
+<span class="bg-error-container text-on-error-container px-1.5 py-0.5 rounded text-[9px] font-bold">ALERT</span>
+</div>
+<p class="text-body-sm text-on-surface mb-1">Port <span class="text-error font-bold">Shut Down</span> by STP loop protection.</p>
+<p class="text-[10px] text-on-surface-variant italic">Reason: Duplicate MAC detected on Gi1/0/24</p>
+</div>
+<!-- Log Item 4 -->
+<div class="p-4 hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-data-mono text-slate-500">Yesterday 09:20 AM</span>
+<span class="bg-surface-container-highest text-slate-400 px-1.5 py-0.5 rounded text-[9px] font-bold">INFO</span>
+</div>
+<p class="text-body-sm text-on-surface">Description updated to "SEC-CAM-04-NORTH" by <span class="text-blue-400">SYSTEM_CRON</span>.</p>
+</div>
+</div>
+<div class="p-3 border-t border-outline-variant bg-surface-container-low text-center">
+<button class="text-blue-400 text-label-caps hover:underline">View Full Audit History</button>
+</div>
+</div>
+<!-- Live Health Card -->
+<div class="bg-surface-container border border-outline-variant rounded overflow-hidden">
+<div class="p-4 flex items-center justify-between bg-surface-container-high">
+<span class="text-label-caps">PORT TRAFFIC</span>
+<span class="material-symbols-outlined text-xs text-blue-400" data-icon="monitoring">monitoring</span>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<div class="text-display-lg font-data-mono">42.8 <span class="text-body-sm text-slate-500">Mbps</span></div>
+<div class="text-[10px] text-green-500 font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="arrow_upward">arrow_upward</span>
+                                    12% from avg
+                                </div>
+</div>
+<div class="w-32 h-12">
+<!-- Decorative Sparkline -->
+<svg class="w-full h-full stroke-blue-500 fill-none stroke-2" viewbox="0 0 100 30">
+<path d="M0 25 L10 22 L20 28 L30 15 L40 18 L50 10 L60 12 L70 5 L80 14 L90 8 L100 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[10px] font-data-mono pt-2 border-t border-outline-variant/30">
+<div>
+<span class="text-slate-500">TX PKTS:</span>
+<span class="text-slate-300">1,402,881</span>
+</div>
+<div>
+<span class="text-slate-500">ERRORS:</span>
+<span class="text-error font-bold">0</span>
+</div>
+<div>
+<span class="text-slate-500">RX PKTS:</span>
+<span class="text-slate-300">982,104</span>
+</div>
+<div>
+<span class="text-slate-500">COLLISIONS:</span>
+<span class="text-slate-300">0</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed as per rules for Details/Workflow pages) -->
+<!-- But keeping a "Floating Tooltip" for Safe Mode as a visual anchor if needed -->
+<div class="fixed bottom-6 right-6 z-50">
+<div class="group relative">
+<div class="bg-blue-600 text-on-primary-container p-3 rounded-full shadow-xl cursor-help animate-bounce">
+<span class="material-symbols-outlined" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div class="absolute bottom-full right-0 mb-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none w-48">
+<div class="bg-surface-container-high border border-outline-variant p-3 rounded shadow-2xl text-xs">
+<p class="font-bold text-blue-400 mb-1 uppercase tracking-tighter">Safe Mode Enabled</p>
+<p class="text-on-surface-variant leading-relaxed">All changes require peer review before deployment to production core.</p>
+</div>
+</div>
+</div>
+</div>
+</body></html>

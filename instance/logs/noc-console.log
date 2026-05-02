@@ -1,0 +1,581 @@
+2026-04-23 19:23:46 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/ubiquiti | remote=127.0.0.1 | Queued scan job #1 for vendor=ubiquiti trigger=manual requested_by=1
+2026-04-23 19:23:46 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #1 for vendor=ubiquiti target_count=56
+2026-04-23 19:38:24 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/cambium | remote=127.0.0.1 | Queued scan job #2 for vendor=cambium trigger=manual requested_by=1
+2026-04-23 19:38:24 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #2 for vendor=cambium target_count=60
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.1: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.2: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.3: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.4: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.33: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.34: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.35: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.36: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.1: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.2: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.3: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.4: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.33: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.34: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.35: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.36: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.97: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.98: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.99: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.100: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.33: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.34: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.35: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.36: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.129: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.130: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.131: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.132: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.97: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.98: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.99: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.100: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.129: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.130: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.131: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.4.132: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.1: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.2: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.3: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.4: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.12.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.12.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.12.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.12.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.97: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.98: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.99: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.100: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+2026-04-23 19:43:02 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #2 for vendor=cambium processed=0 successful_targets=0 failed_targets=60
+2026-04-23 20:38:28 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/cambium | remote=192.168.30.222 | Queued scan job #3 for vendor=cambium trigger=manual requested_by=1
+2026-04-23 20:38:28 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #3 for vendor=cambium target_count=60
+2026-04-23 20:39:45 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.65: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-23 20:39:45 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.68: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-23 20:39:45 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.3: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-23 20:39:45 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #3 for vendor=cambium processed=518 successful_targets=57 failed_targets=3
+2026-04-23 21:17:15 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/ubiquiti | remote=192.168.30.222 | Queued replacement scan job #4 for vendor=ubiquiti trigger=manual requested_by=1 superseding=[1]
+2026-04-23 21:17:15 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #4 for vendor=ubiquiti target_count=56
+2026-04-23 21:25:15 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #4 for vendor=ubiquiti processed=175 successful_targets=50 failed_targets=6
+2026-04-25 12:00:39 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 12:00:39 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-25 12:00:39 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #5 for vendor=cambium trigger=scheduler requested_by=system
+2026-04-25 12:00:39 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #6 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-04-25 12:00:39 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #5 for vendor=cambium target_count=60
+2026-04-25 12:00:39 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #6 for vendor=ubiquiti target_count=56
+2026-04-25 12:00:39 | ERROR | app | request_id=- | actor=- | - - | remote=- | Background scan failed for ubiquiti
+Traceback (most recent call last):
+  File "C:\Users\ION\Documents\noc\app\services\job_runner.py", line 99, in _run_scan_job
+    scan_result = run_ubiquiti_scan(
+        self.app.config,
+        targets,
+        should_abort=lambda: jobs_service.is_job_canceled(job_id),
+    )
+  File "C:\Users\ION\Documents\noc\app\services\ubiquiti_service.py", line 143, in run_scan
+    with sync_playwright() as playwright:
+         ~~~~~~~~~~~~~~~^^
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\sync_api\_context_manager.py", line 77, in __enter__
+    dispatcher_fiber.switch()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\sync_api\_context_manager.py", line 56, in greenlet_main
+    self._loop.run_until_complete(self._connection.run_as_sync())
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 301, in run_as_sync
+    await self.run()
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 310, in run
+    await self._transport.connect()
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\_impl\_transport.py", line 133, in connect
+    raise exc
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\_impl\_transport.py", line 120, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        stderr=stderr, **kwds)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 1802, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        protocol, popen_args, False, stdin, stdout, stderr,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        bufsize, **kwargs)
+        ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_events.py", line 401, in _make_subprocess_transport
+    transp = _WindowsSubprocessTransport(self, protocol, args, shell,
+                                         stdin, stdout, stderr, bufsize,
+                                         waiter=waiter, extra=extra,
+                                         **kwargs)
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_subprocess.py", line 39, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                stderr=stderr, bufsize=bufsize, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_events.py", line 879, in _start
+    self._proc = windows_utils.Popen(
+                 ~~~~~~~~~~~~~~~~~~~^
+        args, shell=shell, stdin=stdin, stdout=stdout, stderr=stderr,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        bufsize=bufsize, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_utils.py", line 136, in __init__
+    stdin_rh, stdin_wh = pipe(overlapped=(False, True), duplex=True)
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_utils.py", line 63, in pipe
+    h2 = _winapi.CreateFile(
+        address, access, 0, _winapi.NULL, _winapi.OPEN_EXISTING,
+        flags_and_attribs, _winapi.NULL)
+PermissionError: [WinError 5] Access is denied
+2026-04-25 12:00:40 | ERROR | app | request_id=- | actor=- | - - | remote=- | Background scan failed for cambium
+Traceback (most recent call last):
+  File "C:\Users\ION\Documents\noc\app\services\job_runner.py", line 97, in _run_scan_job
+    scan_result = run_cambium_scan(self.app.config, targets)
+  File "C:\Users\ION\Documents\noc\app\services\cambium_service.py", line 175, in run_scan
+    return asyncio.run(
+           ~~~~~~~~~~~^
+        _run_async_scan(
+        ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        )
+        ^
+    )
+    ^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\ION\Documents\noc\app\services\cambium_service.py", line 144, in _run_async_scan
+    async with async_playwright() as playwright:
+               ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\async_api\_context_manager.py", line 46, in __aenter__
+    playwright = AsyncPlaywright(next(iter(done)).result())
+                                 ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\playwright\_impl\_transport.py", line 120, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        stderr=stderr, **kwds)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 1802, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        protocol, popen_args, False, stdin, stdout, stderr,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        bufsize, **kwargs)
+        ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_events.py", line 401, in _make_subprocess_transport
+    transp = _WindowsSubprocessTransport(self, protocol, args, shell,
+                                         stdin, stdout, stderr, bufsize,
+                                         waiter=waiter, extra=extra,
+                                         **kwargs)
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_subprocess.py", line 39, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                stderr=stderr, bufsize=bufsize, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_events.py", line 879, in _start
+    self._proc = windows_utils.Popen(
+                 ~~~~~~~~~~~~~~~~~~~^
+        args, shell=shell, stdin=stdin, stdout=stdout, stderr=stderr,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        bufsize=bufsize, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_utils.py", line 136, in __init__
+    stdin_rh, stdin_wh = pipe(overlapped=(False, True), duplex=True)
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ION\AppData\Local\Programs\Python\Python313\Lib\asyncio\windows_utils.py", line 63, in pipe
+    h2 = _winapi.CreateFile(
+        address, access, 0, _winapi.NULL, _winapi.OPEN_EXISTING,
+        flags_and_attribs, _winapi.NULL)
+PermissionError: [WinError 5] Access is denied
+2026-04-25 12:03:37 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 12:03:37 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-25 12:10:37 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #7 for vendor=cambium trigger=scheduler requested_by=system
+2026-04-25 12:10:37 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #7 for vendor=cambium target_count=60
+2026-04-25 12:12:06 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.65: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-25 12:12:06 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.68: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-25 12:12:06 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.3: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-25 12:12:06 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #7 for vendor=cambium processed=516 successful_targets=57 failed_targets=3
+2026-04-25 12:20:38 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #8 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-04-25 12:20:38 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #8 for vendor=ubiquiti target_count=56
+2026-04-25 12:28:33 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #8 for vendor=ubiquiti processed=175 successful_targets=50 failed_targets=6
+2026-04-25 13:29:59 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 13:29:59 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-25 13:31:29 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/cambium | remote=192.168.30.17 | Queued scan job #9 for vendor=cambium trigger=manual requested_by=5
+2026-04-25 13:31:29 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #9 for vendor=cambium target_count=60
+2026-04-25 13:33:01 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.65: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-25 13:33:01 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.68: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-25 13:33:01 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.3: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator(".slick-row") to be visible
+
+2026-04-25 13:33:01 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #9 for vendor=cambium processed=513 successful_targets=57 failed_targets=3
+2026-04-25 13:35:50 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/ubiquiti | remote=192.168.30.17 | Queued scan job #10 for vendor=ubiquiti trigger=manual requested_by=5
+2026-04-25 13:35:51 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #10 for vendor=ubiquiti target_count=56
+2026-04-25 13:43:24 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #10 for vendor=ubiquiti processed=161 successful_targets=50 failed_targets=6
+2026-04-25 13:52:09 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 13:52:09 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-25 14:10:12 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 14:10:12 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-25 14:43:18 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 14:43:18 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-25 16:21:27 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 16:21:27 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-25 18:07:22 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-25 18:07:22 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-26 01:30:31 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #11 for vendor=cambium trigger=scheduler requested_by=system
+2026-04-26 01:30:31 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #11 for vendor=cambium target_count=60
+2026-04-26 01:32:09 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #11 for vendor=cambium processed=509 successful_targets=60 failed_targets=0
+2026-04-26 02:30:32 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #12 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-04-26 02:30:32 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #12 for vendor=ubiquiti target_count=56
+2026-04-26 02:38:16 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #12 for vendor=ubiquiti processed=178 successful_targets=50 failed_targets=6
+2026-04-26 10:09:59 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-26 10:09:59 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-26 10:18:18 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-26 10:18:18 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-26 10:26:00 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-26 10:26:00 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-26 14:46:52 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/ubiquiti | remote=192.168.30.17 | Queued scan job #13 for vendor=ubiquiti trigger=manual requested_by=5
+2026-04-26 14:46:52 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #13 for vendor=ubiquiti target_count=56
+2026-04-26 14:55:02 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #13 for vendor=ubiquiti processed=179 successful_targets=50 failed_targets=6
+2026-04-27 01:30:19 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #14 for vendor=cambium trigger=scheduler requested_by=system
+2026-04-27 01:30:19 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #14 for vendor=cambium target_count=60
+2026-04-27 01:31:51 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #14 for vendor=cambium processed=513 successful_targets=60 failed_targets=0
+2026-04-27 02:30:21 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #15 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-04-27 02:30:21 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #15 for vendor=ubiquiti target_count=56
+2026-04-27 02:37:52 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #15 for vendor=ubiquiti processed=178 successful_targets=50 failed_targets=6
+2026-04-27 10:48:44 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-27 10:48:44 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-27 10:49:47 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/cambium | remote=192.168.30.17 | Queued scan job #16 for vendor=cambium trigger=manual requested_by=5
+2026-04-27 10:49:47 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #16 for vendor=cambium target_count=60
+2026-04-27 10:51:29 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #16 for vendor=cambium processed=511 successful_targets=60 failed_targets=0
+2026-04-27 11:34:30 | INFO | app | request_id=- | actor=anonymous | POST /inventory/run/cambium | remote=192.168.30.17 | Queued scan job #17 for vendor=cambium trigger=manual requested_by=5
+2026-04-27 11:34:30 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #17 for vendor=cambium target_count=60
+2026-04-27 11:35:53 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #17 for vendor=cambium processed=514 successful_targets=60 failed_targets=0
+2026-04-27 11:46:24 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-27 11:46:24 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-27 11:50:15 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-04-27 11:50:15 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-04-28 01:30:30 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #18 for vendor=cambium trigger=scheduler requested_by=system
+2026-04-28 01:30:30 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #18 for vendor=cambium target_count=60
+2026-04-28 01:32:07 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #18 for vendor=cambium processed=507 successful_targets=60 failed_targets=0
+2026-04-28 02:30:31 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #19 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-04-28 02:30:31 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #19 for vendor=ubiquiti target_count=56
+2026-04-28 02:38:29 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #19 for vendor=ubiquiti processed=179 successful_targets=50 failed_targets=6
+2026-04-29 01:30:00 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #20 for vendor=cambium trigger=scheduler requested_by=system
+2026-04-29 01:30:00 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #20 for vendor=cambium target_count=60
+2026-04-29 01:31:42 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #20 for vendor=cambium processed=505 successful_targets=60 failed_targets=0
+2026-04-29 02:30:01 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #21 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-04-29 02:30:01 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #21 for vendor=ubiquiti target_count=56
+2026-04-29 02:38:12 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #21 for vendor=ubiquiti processed=178 successful_targets=50 failed_targets=6
+2026-04-30 01:30:36 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #22 for vendor=cambium trigger=scheduler requested_by=system
+2026-04-30 01:30:36 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #22 for vendor=cambium target_count=60
+2026-04-30 01:32:29 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #22 for vendor=cambium processed=511 successful_targets=60 failed_targets=0
+2026-04-30 02:30:37 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #23 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-04-30 02:30:37 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #23 for vendor=ubiquiti target_count=56
+2026-04-30 02:38:57 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #23 for vendor=ubiquiti processed=180 successful_targets=50 failed_targets=6
+2026-05-01 01:30:11 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #24 for vendor=cambium trigger=scheduler requested_by=system
+2026-05-01 01:30:11 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #24 for vendor=cambium target_count=60
+2026-05-01 01:31:46 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #24 for vendor=cambium processed=508 successful_targets=60 failed_targets=0
+2026-05-01 02:30:13 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #25 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-05-01 02:30:13 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #25 for vendor=ubiquiti target_count=56
+2026-05-01 02:37:55 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #25 for vendor=ubiquiti processed=180 successful_targets=50 failed_targets=6
+2026-05-02 01:30:46 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #26 for vendor=cambium trigger=scheduler requested_by=system
+2026-05-02 01:30:46 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #26 for vendor=cambium target_count=60
+2026-05-02 01:32:46 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.0.33: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://10.51.0.33/", waiting until "load"
+
+2026-05-02 01:32:46 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.33: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://10.51.8.33/", waiting until "load"
+
+2026-05-02 01:32:46 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.36: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://10.51.8.36/", waiting until "load"
+
+2026-05-02 01:32:46 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.97: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://10.51.8.97/", waiting until "load"
+
+2026-05-02 01:32:46 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.98: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://10.51.8.98/", waiting until "load"
+
+2026-05-02 01:32:46 | WARNING | app.services.cambium_service | request_id=- | actor=- | - - | remote=- | Cambium scan task failed for 10.51.8.99: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "http://10.51.8.99/", waiting until "load"
+
+2026-05-02 01:32:46 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #26 for vendor=cambium processed=443 successful_targets=54 failed_targets=6
+2026-05-02 02:30:48 | INFO | app | request_id=- | actor=- | - - | remote=- | Queued scan job #27 for vendor=ubiquiti trigger=scheduler requested_by=system
+2026-05-02 02:30:48 | INFO | app | request_id=- | actor=- | - - | remote=- | Starting scan job #27 for vendor=ubiquiti target_count=56
+2026-05-02 02:41:44 | INFO | app | request_id=- | actor=- | - - | remote=- | Completed scan job #27 for vendor=ubiquiti processed=111 successful_targets=22 failed_targets=34
+2026-05-02 10:14:09 | ERROR | app | request_id=aefd535029f7 | actor=anonymous | GET /switches/ultra | remote=192.168.30.17 | Exception on /switches/ultra [GET]
+Traceback (most recent call last):
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "c:\Users\ION\Documents\noc\app\__init__.py", line 85, in load_current_user
+    flash(
+    ^^^^^
+NameError: name 'flash' is not defined. Did you mean: 'Flask'?
+2026-05-02 10:14:09 | ERROR | app | request_id=aefd535029f7 | actor=anonymous | GET /switches/ultra | remote=192.168.30.17 | Unhandled server error reference=aefd535029f7
+Traceback (most recent call last):
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\ION\Documents\noc\.venv\Lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "c:\Users\ION\Documents\noc\app\__init__.py", line 85, in load_current_user
+    flash(
+    ^^^^^
+NameError: name 'flash' is not defined. Did you mean: 'Flask'?
+2026-05-02 15:16:56 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-05-02 15:16:56 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.
+2026-05-02 16:11:10 | INFO | app | request_id=- | actor=- | - - | remote=- | Background scheduler is enabled with a 60-second tick.
+2026-05-02 16:11:10 | INFO | app | request_id=- | actor=- | - - | remote=- | Monitoring service is enabled with a 30-second refresh.

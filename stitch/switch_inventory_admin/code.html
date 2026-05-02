@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Switch Inventory Admin | NOC Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#f8f7ff",
+                    "on-surface": "#dae2fd",
+                    "surface-variant": "#2d3449",
+                    "on-error": "#690005",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface": "#0b1326",
+                    "primary-container": "#0066ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-tint": "#b3c5ff",
+                    "inverse-primary": "#0054d6",
+                    "on-secondary": "#213145",
+                    "primary-fixed": "#dae1ff",
+                    "on-surface-variant": "#c2c6d8",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-primary": "#002b75",
+                    "on-error-container": "#ffdad6",
+                    "secondary-container": "#3a4a5f",
+                    "tertiary-container": "#cc4204",
+                    "tertiary": "#ffb59d",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface-container": "#171f33",
+                    "inverse-surface": "#dae2fd",
+                    "inverse-on-surface": "#283044",
+                    "on-secondary-container": "#a9bad3",
+                    "surface-container-high": "#222a3d",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-bright": "#31394d",
+                    "surface-dim": "#0b1326",
+                    "on-tertiary": "#5d1900",
+                    "outline": "#8c90a1",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline-variant": "#424656",
+                    "on-background": "#dae2fd",
+                    "secondary-fixed": "#d3e4fe",
+                    "background": "#0b1326",
+                    "surface-container-low": "#131b2e",
+                    "surface-container-lowest": "#060e20",
+                    "primary": "#b3c5ff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-primary-fixed": "#001849",
+                    "error-container": "#93000a",
+                    "secondary": "#b7c8e1",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#2d3449",
+                    "on-secondary-fixed-variant": "#38485d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "margin": "24px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "unit": "4px",
+                    "xs": "4px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-base": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "data-mono": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-base": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+        }
+    </style>
+</head>
+<body class="font-body-base antialiased">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 flex flex-col h-full z-50 overflow-y-auto bg-slate-950 docked left-0 h-screen w-64 border-r border-slate-800 shadow-none">
+<div class="px-6 py-8">
+<h1 class="text-blue-500 font-black font-headline-md tracking-tighter">Network Ops</h1>
+<p class="text-slate-500 text-[10px] uppercase tracking-[0.2em]">Vigilant System</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<!-- Dashboard -->
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Dashboard</span>
+</a>
+<!-- Inventory -->
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 group" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Inventory</span>
+</a>
+<!-- Switches (ACTIVE) -->
+<a class="bg-blue-500/10 text-blue-500 border-l-2 border-blue-500 px-4 py-3 flex items-center gap-3 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Switches</span>
+</a>
+<!-- Audit Log -->
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 group" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Audit Log</span>
+</a>
+<!-- Settings -->
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 transition-all duration-200 hover:bg-slate-900 group" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-800 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
+<img alt="System Administrator" class="w-full h-full object-cover" data-alt="professional male system administrator portrait with tech background, subtle blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKUxXoSMJawIg__FSPLcSnPa9wGics0x3d0t3iLxNwHbUrOKmtYj31T1R0IlXXCC_qdILFZf7Ep4IhY_CrijkwAQzcubJaR37Ola2a-gFl4xiaOP7Ne449HrvAr5q7H26FFLIRhRD7OHuwgxh7IJwsSvHb92PoWveKWVxhhvYUkdLCHluLL6sWcqWsbAcpLBj2DIExB50cf-Cfwl5IgoOHVreS-PUDcGdXKMJkVAntfB2_wWTqBht0ko1l12nRhWA1q0Lj_XHIWgo"/>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-200 text-[10px] font-bold">SYS_ADMIN_01</span>
+<span class="text-slate-500 text-[9px]">ROOT ACCESS</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-slate-950 flex justify-between items-center w-full px-6 h-14 max-w-[1920px] mx-auto docked full-width top-0 z-40 border-b border-slate-800 shadow-none">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold tracking-tight text-slate-100 font-inter antialiased">NOC Console</span>
+<span class="text-slate-600">/</span>
+<span class="text-blue-500 font-semibold font-inter text-sm antialiased">Switch Inventory Admin</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<input class="bg-slate-900 border-none text-xs rounded-lg px-4 py-1.5 w-64 text-slate-300 focus:ring-1 focus:ring-blue-500" placeholder="Search Inventory..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-data-mono text-slate-400 text-[11px] uppercase tracking-widest">Scan: 14:02:11</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-slate-100" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-slate-100" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Operational Canvas -->
+<div class="p-6 space-y-6">
+<!-- Header Actions -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-display-lg text-on-surface">Manage Network Switches</h2>
+<p class="font-body-sm text-on-surface-variant">Configure, provision, and validate hardware nodes across all site clusters.</p>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Register New Switch
+                </button>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Main Form Section -->
+<section class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container border border-outline-variant p-6 rounded-xl shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="edit_note">edit_note</span>
+<h3 class="font-headline-md text-on-surface">Configuration Template</h3>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Name -->
+<div class="space-y-1.5">
+<label class="font-label-caps text-on-surface-variant">Switch Alias</label>
+<input class="w-full bg-surface-container-high border border-outline-variant rounded-lg px-4 py-2 text-on-surface focus:ring-2 focus:ring-primary focus:outline-none" type="text" value="US-EAST-CORE-01"/>
+</div>
+<!-- IP -->
+<div class="space-y-1.5">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-on-surface-variant">IP Address</label>
+<span class="text-[10px] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                                        Valid IPv4 Format
+                                    </span>
+</div>
+<input class="w-full bg-surface-container-high border border-primary/50 rounded-lg px-4 py-2 text-on-surface focus:ring-2 focus:ring-primary focus:outline-none" type="text" value="10.128.45.22"/>
+</div>
+<!-- Model -->
+<div class="space-y-1.5">
+<label class="font-label-caps text-on-surface-variant">Hardware Model</label>
+<select class="w-full bg-surface-container-high border border-outline-variant rounded-lg px-4 py-2 text-on-surface focus:ring-2 focus:ring-primary focus:outline-none">
+<option>Cisco Catalyst 9300L</option>
+<option>Aruba 6300M</option>
+<option>Juniper EX4400</option>
+<option>Generic L3 Switch</option>
+</select>
+</div>
+<!-- Site -->
+<div class="space-y-1.5">
+<label class="font-label-caps text-on-surface-variant">Site Association</label>
+<select class="w-full bg-surface-container-high border border-outline-variant rounded-lg px-4 py-2 text-on-surface focus:ring-2 focus:ring-primary focus:outline-none">
+<option>Data Center - Ashburn (VA)</option>
+<option>Regional Hub - London (UK)</option>
+<option>Edge Node - Tokyo (JP)</option>
+</select>
+</div>
+</div>
+<!-- Credentials Sub-section -->
+<div class="mt-8 pt-6 border-t border-outline-variant">
+<h4 class="font-label-caps text-primary mb-4">Access Credentials (SNMP / SSH)</h4>
+<div class="grid grid-cols-3 gap-4">
+<div class="space-y-1.5">
+<label class="text-[10px] text-on-surface-variant font-bold uppercase">SSH Username</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-3 py-1.5 text-xs text-on-surface" placeholder="admin" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] text-on-surface-variant font-bold uppercase">SSH Password</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-3 py-1.5 text-xs text-on-surface" type="password" value="********"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] text-on-surface-variant font-bold uppercase">SNMP Community</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-3 py-1.5 text-xs text-on-surface" placeholder="v3-auth-key" type="text"/>
+</div>
+</div>
+</div>
+<!-- Connection Test -->
+<div class="mt-8 flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-primary/20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="router">router</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Connection Status: Pending</p>
+<p class="text-[11px] text-on-surface-variant">Last ping check: Never</p>
+</div>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded text-xs font-bold hover:bg-opacity-80 transition-colors">
+                                RUN CONNECTION TEST
+                            </button>
+</div>
+<div class="mt-8 flex justify-end gap-3">
+<button class="px-6 py-2 rounded-lg font-bold text-xs text-error hover:bg-error/10 transition-colors">DELETE ENTRY</button>
+<button class="bg-primary px-6 py-2 rounded-lg font-bold text-xs text-on-primary hover:opacity-90 transition-opacity">SAVE CHANGES</button>
+</div>
+</div>
+<!-- Switches Table -->
+<div class="bg-surface-container border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-on-surface text-base">Active Inventory</h3>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px] font-bold text-primary">12 NODES ONLINE</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-high">
+<tr class="text-[10px] uppercase tracking-widest text-on-surface-variant">
+<th class="px-6 py-3 font-bold">Node Name</th>
+<th class="px-6 py-3 font-bold">IP Address</th>
+<th class="px-6 py-3 font-bold">Site</th>
+<th class="px-6 py-3 font-bold">Status</th>
+<th class="px-6 py-3 font-bold">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-primary/5 transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(179,197,255,0.6)]"></div>
+<span class="text-on-surface font-semibold text-xs">NY-DIST-A1</span>
+</div>
+</td>
+<td class="px-6 py-4 font-data-mono text-xs text-on-surface-variant">10.10.12.1</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">New York HQ</td>
+<td class="px-6 py-4">
+<span class="bg-primary/15 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 uppercase">Operational</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors cursor-pointer" data-icon="settings">settings</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<span class="text-on-surface font-semibold text-xs">LDN-CORE-02</span>
+</div>
+</td>
+<td class="px-6 py-4 font-data-mono text-xs text-on-surface-variant">172.16.5.25</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">London HUB</td>
+<td class="px-6 py-4">
+<span class="bg-tertiary/15 text-tertiary text-[10px] font-bold px-2 py-0.5 rounded border border-tertiary/20 uppercase">Maintenance</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors cursor-pointer" data-icon="settings">settings</span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-error"></div>
+<span class="text-on-surface font-semibold text-xs">TK-EDGE-09</span>
+</div>
+</td>
+<td class="px-6 py-4 font-data-mono text-xs text-on-surface-variant">192.168.99.1</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">Tokyo Edge</td>
+<td class="px-6 py-4">
+<span class="bg-error/15 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20 uppercase">Critical Error</span>
+</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors cursor-pointer" data-icon="settings">settings</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Sidebar Widgets Section -->
+<aside class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Audit Log Snippet -->
+<div class="bg-surface-container border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="px-5 py-4 border-b border-outline-variant flex items-center justify-between">
+<h4 class="font-label-caps text-on-surface">Admin Audit Log</h4>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="history">history</span>
+</div>
+<div class="p-5 space-y-4">
+<!-- Log Item -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="update">update</span>
+</div>
+<div>
+<p class="text-xs text-on-surface"><span class="font-bold">admin_root</span> modified config on <span class="text-primary font-bold">NY-DIST-A1</span></p>
+<p class="text-[10px] text-on-surface-variant mt-0.5">2 minutes ago</p>
+</div>
+</div>
+<!-- Log Item -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-sm" data-icon="add_box">add_box</span>
+</div>
+<div>
+<p class="text-xs text-on-surface"><span class="font-bold">sys_ops_jane</span> added new node <span class="text-primary font-bold">SEA-EDGE-04</span></p>
+<p class="text-[10px] text-on-surface-variant mt-0.5">1 hour ago</p>
+</div>
+</div>
+<!-- Log Item -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded bg-error/10 flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-sm" data-icon="delete_sweep">delete_sweep</span>
+</div>
+<div>
+<p class="text-xs text-on-surface"><span class="font-bold">admin_root</span> deleted legacy node <span class="text-error font-bold">CHI-BKUP-V1</span></p>
+<p class="text-[10px] text-on-surface-variant mt-0.5">4 hours ago</p>
+</div>
+</div>
+</div>
+<a class="block w-full text-center py-3 bg-surface-container-high text-[10px] font-bold text-primary hover:text-on-primary-container transition-colors border-t border-outline-variant" href="#">VIEW FULL HISTORY</a>
+</div>
+<!-- Validation Rules Info -->
+<div class="bg-surface-container-high border border-outline-variant p-5 rounded-xl">
+<h4 class="font-label-caps text-primary mb-3">Provisioning Rules</h4>
+<ul class="space-y-2.5">
+<li class="flex items-start gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-base" data-icon="verified_user">verified_user</span>
+<span>SNMP v3 is mandatory for all core distribution switches.</span>
+</li>
+<li class="flex items-start gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-base" data-icon="lock_clock">lock_clock</span>
+<span>Passwords must be rotated every 90 days as per ISO 27001.</span>
+</li>
+<li class="flex items-start gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-base" data-icon="lan">lan</span>
+<span>IP overlap checks are performed against Global Subnet DB.</span>
+</li>
+</ul>
+</div>
+<!-- Map/Location Glance -->
+<div class="relative h-48 rounded-xl overflow-hidden border border-outline-variant group">
+<img class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="dark high-contrast satellite view of global fiber optic network lines and data center locations" data-location="Global Infrastructure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIAUuuinxSbAZkiBeY2TNWgGqsLuhJxPEsjQfLipcsssVFiapsrpIutmQp_NwWpMkwnFOR9KSAaYgVN2s7RKz5ZwI6j5IHj1E2NF4qW2Q55NTyfMVkni5FTBsBWHTm9CCBDbL0i4pwDwT8iOPjn2dpbOcdrdBBUg82GTjFRI4H30A4NP05YWNr3BBA-m3OaimGm7Rj4hDhk5QMCyHh17eU_rG9BOrA7DIokTC_c_FzrYm8AYfPxmONQ0WySW0DHxP92grMETVtTDc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<p class="text-[10px] font-bold text-blue-400 uppercase tracking-tighter">Global Node Distribution</p>
+<p class="text-lg font-black text-slate-100 leading-none">32 SITES ACTIVE</p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Global Toast Alert (Manual Dismissal Required) -->
+<div class="fixed top-6 right-6 z-[60] w-80 bg-surface-container border-l-4 border-error p-4 shadow-2xl rounded-r-lg ring-1 ring-white/5">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-error" data-icon="report">report</span>
+<div>
+<h5 class="text-xs font-bold text-on-surface uppercase">Critical Inventory Sync Error</h5>
+<p class="text-[10px] text-on-surface-variant mt-1">Node 'TK-EDGE-09' failed SNMP handshake. Administrative override may be required.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm cursor-pointer hover:text-on-surface" data-icon="close">close</span>
+</div>
+<div class="mt-3 flex justify-end">
+<button class="text-[10px] font-bold text-primary underline underline-offset-2">RUN DIAGNOSTICS</button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NOC Console - Ubiquiti Inventory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#f8f7ff",
+                    "on-surface": "#dae2fd",
+                    "surface-variant": "#2d3449",
+                    "on-error": "#690005",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface": "#0b1326",
+                    "primary-container": "#0066ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-tint": "#b3c5ff",
+                    "inverse-primary": "#0054d6",
+                    "on-secondary": "#213145",
+                    "primary-fixed": "#dae1ff",
+                    "on-surface-variant": "#c2c6d8",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-primary": "#002b75",
+                    "on-error-container": "#ffdad6",
+                    "secondary-container": "#3a4a5f",
+                    "tertiary-container": "#cc4204",
+                    "tertiary": "#ffb59d",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface-container": "#171f33",
+                    "inverse-surface": "#dae2fd",
+                    "inverse-on-surface": "#283044",
+                    "on-secondary-container": "#a9bad3",
+                    "surface-container-high": "#222a3d",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-bright": "#31394d",
+                    "surface-dim": "#0b1326",
+                    "on-tertiary": "#5d1900",
+                    "outline": "#8c90a1",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline-variant": "#424656",
+                    "on-background": "#dae2fd",
+                    "secondary-fixed": "#d3e4fe",
+                    "background": "#0b1326",
+                    "surface-container-low": "#131b2e",
+                    "surface-container-lowest": "#060e20",
+                    "primary": "#b3c5ff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-primary-fixed": "#001849",
+                    "error-container": "#93000a",
+                    "secondary": "#b7c8e1",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#2d3449",
+                    "on-secondary-fixed-variant": "#38485d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "margin": "24px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "unit": "4px",
+                    "xs": "4px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-base": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "data-mono": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-base": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { background-color: #0b1326; color: #dae2fd; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .scanning-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="font-body-base antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 flex flex-col h-full z-50 overflow-y-auto bg-slate-950 border-r border-slate-800 w-64">
+<div class="p-6">
+<h1 class="text-blue-500 font-black text-xl tracking-tighter">Network Ops</h1>
+<p class="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-bold">Vigilant System</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Dashboard</span>
+</a>
+<a class="bg-blue-500/10 text-blue-500 border-l-2 border-blue-500 px-4 py-3 flex items-center gap-3 transition-all duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Inventory</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Switches</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Audit Log</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-4 border-t border-slate-800">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-200">Admin</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-tighter">System Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-slate-950 border-b border-slate-800 flex justify-between items-center w-full px-6 h-14 z-40">
+<div class="flex items-center gap-4">
+<span class="font-inter text-sm antialiased text-slate-400">Inventory / </span>
+<span class="font-inter text-sm antialiased text-blue-500 font-semibold uppercase tracking-widest">Ubiquiti AirMAX</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1 bg-blue-500/5 rounded-full border border-blue-500/20">
+<span class="material-symbols-outlined text-[14px] text-blue-500 scanning-pulse">sync</span>
+<span class="font-data-mono text-[11px] text-blue-500">Scan: 14:02:11</span>
+</div>
+<div class="flex items-center gap-4 text-slate-400">
+<span class="material-symbols-outlined cursor-pointer hover:text-slate-100 transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-slate-100 transition-colors">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-6 space-y-6 max-w-[1920px] mx-auto w-full">
+<!-- Header & Filters -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-display-lg text-on-surface">Subscriber Inventory</h2>
+<p class="font-body-sm text-outline">Real-time AirMAX capacity and noise floor monitoring for WISP operations.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container-low border border-outline-variant rounded-lg pl-9 pr-4 py-2 text-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all w-64" placeholder="Search site or firmware..." type="text"/>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-high border border-outline-variant rounded-lg text-body-sm hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+<span>Filters</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary-container text-on-primary-container rounded-lg text-body-sm font-semibold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Export CSV</span>
+</button>
+</div>
+</div>
+<!-- Performance Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<!-- Card 1: Avg AirMAX Capacity -->
+<div class="bg-surface-container p-4 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-outline uppercase">Avg AirMAX Capacity</span>
+<span class="material-symbols-outlined text-primary text-lg">speed</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-on-surface">84.2%</span>
+<span class="text-xs text-green-400 flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">trending_up</span>+1.2%</span>
+</div>
+<div class="mt-4 h-12 w-full">
+<div class="flex items-end gap-1 h-full">
+<div class="bg-primary/20 w-full h-[60%] rounded-sm"></div>
+<div class="bg-primary/20 w-full h-[70%] rounded-sm"></div>
+<div class="bg-primary/20 w-full h-[55%] rounded-sm"></div>
+<div class="bg-primary/20 w-full h-[80%] rounded-sm"></div>
+<div class="bg-primary/20 w-full h-[85%] rounded-sm"></div>
+<div class="bg-primary/40 w-full h-[90%] rounded-sm"></div>
+<div class="bg-primary/20 w-full h-[75%] rounded-sm"></div>
+<div class="bg-primary/20 w-full h-[65%] rounded-sm"></div>
+<div class="bg-primary w-full h-[82%] rounded-sm"></div>
+</div>
+</div>
+</div>
+<!-- Card 2: Noise Floor (Local) -->
+<div class="bg-surface-container p-4 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-outline uppercase">Local Noise Floor</span>
+<span class="material-symbols-outlined text-tertiary text-lg">graphic_eq</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-on-surface">-102</span>
+<span class="text-xs text-outline">dBm</span>
+</div>
+<div class="mt-4 space-y-2">
+<div class="flex justify-between text-[10px] font-label-caps text-outline">
+<span>CLEAN</span>
+<span>INTERFERENCE</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="h-full bg-green-500/60 w-3/4"></div>
+<div class="h-full bg-yellow-500/60 w-1/4"></div>
+</div>
+</div>
+</div>
+<!-- Card 3: Active Subscribers -->
+<div class="bg-surface-container p-4 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-outline uppercase">Active Links</span>
+<span class="material-symbols-outlined text-blue-400 text-lg">router</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-on-surface">1,402</span>
+<span class="text-xs text-outline">/ 1,420</span>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-surface bg-blue-500 flex items-center justify-center text-[10px] font-bold">U</div>
+<div class="w-6 h-6 rounded-full border border-surface bg-blue-600 flex items-center justify-center text-[10px] font-bold">U</div>
+<div class="w-6 h-6 rounded-full border border-surface bg-slate-700 flex items-center justify-center text-[10px] font-bold">...</div>
+</div>
+<span class="text-[10px] font-label-caps text-blue-400">98.7% UPTIME</span>
+</div>
+</div>
+<!-- Card 4: Critical Alerts -->
+<div class="bg-surface-container p-4 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-outline uppercase">System Status</span>
+<span class="material-symbols-outlined text-error text-lg">warning</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-error">3</span>
+<span class="text-xs text-outline">Pending Actions</span>
+</div>
+<div class="mt-4">
+<button class="w-full py-1.5 bg-error-container text-on-error-container rounded text-xs font-bold hover:opacity-90 transition-opacity">
+                            RESOLVE NOW
+                        </button>
+</div>
+</div>
+</div>
+<!-- Inventory Table -->
+<div class="bg-surface-container rounded-xl border border-outline-variant overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant">
+<th class="px-4 py-3 font-label-caps text-outline uppercase">Subscriber Name</th>
+<th class="px-4 py-3 font-label-caps text-outline uppercase">Model / FW</th>
+<th class="px-4 py-3 font-label-caps text-outline uppercase text-center">Signal (dBm)</th>
+<th class="px-4 py-3 font-label-caps text-outline uppercase text-center">Capacity %</th>
+<th class="px-4 py-3 font-label-caps text-outline uppercase text-center">Local Noise</th>
+<th class="px-4 py-3 font-label-caps text-outline uppercase text-center">Remote Noise</th>
+<th class="px-4 py-3 font-label-caps text-outline uppercase text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-4 py-4">
+<div class="font-semibold text-on-surface">Canyon_Ridge_Sector_01</div>
+<div class="text-[10px] font-data-mono text-outline">MAC: 00:27:22:A4:B2:12</div>
+</td>
+<td class="px-4 py-4">
+<div class="text-body-sm text-on-surface">PowerBeam 5AC Gen2</div>
+<div class="text-[10px] text-blue-400 font-data-mono">v8.7.1</div>
+</td>
+<td class="px-4 py-4 text-center">
+<span class="font-data-mono text-green-400">-52 / -54</span>
+</td>
+<td class="px-4 py-4">
+<div class="flex items-center justify-center gap-3">
+<span class="font-data-mono w-8 text-right">94%</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[94%]"></div>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-104</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-102</td>
+<td class="px-4 py-4 text-right">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-500/15 text-green-500 uppercase border border-green-500/20">Optimal</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-4 py-4 border-l-4 border-error">
+<div class="font-semibold text-on-surface">Oak_Heights_SU_14</div>
+<div class="text-[10px] font-data-mono text-outline">MAC: 00:27:22:FF:11:44</div>
+</td>
+<td class="px-4 py-4">
+<div class="text-body-sm text-on-surface">LiteBeam 5AC</div>
+<div class="text-[10px] text-tertiary font-data-mono">v8.5.12 (Update Available)</div>
+</td>
+<td class="px-4 py-4 text-center">
+<span class="font-data-mono text-error">-78 / -82</span>
+</td>
+<td class="px-4 py-4">
+<div class="flex items-center justify-center gap-3">
+<span class="font-data-mono w-8 text-right text-error">12%</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error w-[12%]"></div>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-88</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-84</td>
+<td class="px-4 py-4 text-right">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-error-container text-on-error-container uppercase border border-error/50">Interference</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-4 py-4">
+<div class="font-semibold text-on-surface">River_View_CPE_09</div>
+<div class="text-[10px] font-data-mono text-outline">MAC: 00:27:22:B3:C4:D5</div>
+</td>
+<td class="px-4 py-4">
+<div class="text-body-sm text-on-surface">NanoBeam 5AC Gen2</div>
+<div class="text-[10px] text-blue-400 font-data-mono">v8.7.1</div>
+</td>
+<td class="px-4 py-4 text-center">
+<span class="font-data-mono text-yellow-500">-64 / -65</span>
+</td>
+<td class="px-4 py-4">
+<div class="flex items-center justify-center gap-3">
+<span class="font-data-mono w-8 text-right">68%</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-yellow-500 w-[68%]"></div>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-98</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-97</td>
+<td class="px-4 py-4 text-right">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-yellow-500/15 text-yellow-500 uppercase border border-yellow-500/20">Degraded</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-4 py-4">
+<div class="font-semibold text-on-surface">Summit_Peak_Bridge</div>
+<div class="text-[10px] font-data-mono text-outline">MAC: 00:27:22:E1:99:A2</div>
+</td>
+<td class="px-4 py-4">
+<div class="text-body-sm text-on-surface">IsoStation 5AC</div>
+<div class="text-[10px] text-blue-400 font-data-mono">v8.7.1</div>
+</td>
+<td class="px-4 py-4 text-center">
+<span class="font-data-mono text-green-400">-48 / -49</span>
+</td>
+<td class="px-4 py-4">
+<div class="flex items-center justify-center gap-3">
+<span class="font-data-mono w-8 text-right">99%</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[99%]"></div>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-108</td>
+<td class="px-4 py-4 text-center font-data-mono text-outline">-110</td>
+<td class="px-4 py-4 text-right">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-500/15 text-green-500 uppercase border border-green-500/20">Optimal</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Table Footer -->
+<div class="bg-surface-container-low px-4 py-3 flex items-center justify-between border-t border-outline-variant">
+<span class="text-body-sm text-outline">Showing <span class="text-on-surface font-semibold">1-4</span> of <span class="text-on-surface font-semibold">1,402</span> subscribers</span>
+<div class="flex items-center gap-1">
+<button class="p-1.5 hover:bg-surface-variant rounded transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary-container text-on-primary-container text-xs font-bold">1</button>
+<button class="w-8 h-8 rounded hover:bg-surface-variant text-xs font-bold">2</button>
+<button class="w-8 h-8 rounded hover:bg-surface-variant text-xs font-bold">3</button>
+<span class="px-2">...</span>
+<button class="w-8 h-8 rounded hover:bg-surface-variant text-xs font-bold">351</button>
+<button class="p-1.5 hover:bg-surface-variant rounded transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Detail Drawer Simulation (Bottom Row Visual) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+<div class="bg-surface-container-low rounded-xl border border-outline-variant p-5">
+<h3 class="font-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500">analytics</span>
+                        Network Topology Overview
+                    </h3>
+<div class="aspect-video w-full bg-slate-900 rounded-lg flex items-center justify-center relative overflow-hidden border border-slate-800">
+<!-- Map/Topology Background Placeholder -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-1/4 left-1/4 w-3 h-3 rounded-full bg-primary shadow-[0_0_15px_rgba(0,102,255,0.8)]"></div>
+<div class="absolute top-1/3 left-1/2 w-3 h-3 rounded-full bg-primary shadow-[0_0_15px_rgba(0,102,255,0.8)]"></div>
+<div class="absolute bottom-1/4 right-1/4 w-3 h-3 rounded-full bg-error shadow-[0_0_15px_rgba(255,180,171,0.8)]"></div>
+<svg class="absolute inset-0 w-full h-full stroke-primary/30" fill="none" stroke-width="1">
+<path d="M 120 100 L 240 130"></path>
+<path d="M 240 130 L 400 280"></path>
+</svg>
+</div>
+<span class="font-label-caps text-outline bg-surface-container-highest/80 px-3 py-1 rounded-full backdrop-blur-sm border border-outline-variant">Spatial View Enabled</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl border border-outline-variant p-5">
+<h3 class="font-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">notification_important</span>
+                        Recent Activity Log
+                    </h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3 p-3 bg-surface-container rounded-lg border border-outline-variant/30">
+<div class="p-2 bg-error-container rounded-lg">
+<span class="material-symbols-outlined text-sm text-on-error-container">link_off</span>
+</div>
+<div>
+<p class="text-body-sm font-semibold text-on-surface">Signal Lost: Oak_Heights_SU_14</p>
+<p class="text-[10px] text-outline font-data-mono">2 mins ago • Sector A • High Interference Detected</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-surface-container rounded-lg border border-outline-variant/30">
+<div class="p-2 bg-primary-container rounded-lg">
+<span class="material-symbols-outlined text-sm text-on-primary-container">system_update_alt</span>
+</div>
+<div>
+<p class="text-body-sm font-semibold text-on-surface">Auto-Update Scheduled</p>
+<p class="text-[10px] text-outline font-data-mono">15 mins ago • 12 Nodes Pending • Batch v8.7.5</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-surface-container rounded-lg border border-outline-variant/30">
+<div class="p-2 bg-surface-container-highest rounded-lg">
+<span class="material-symbols-outlined text-sm text-outline">login</span>
+</div>
+<div>
+<p class="text-body-sm font-semibold text-on-surface">Admin Login: NOC_User_02</p>
+<p class="text-[10px] text-outline font-data-mono">1 hour ago • IP: 192.168.1.104</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB - Suppression Logic: Hidden on Detail/Inventory for focused data viewing, but keeping here for "Add Device" as per standard dashboard UX -->
+<div class="fixed bottom-8 right-8 z-50 group">
+<div class="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-surface-container-high text-on-surface px-3 py-1 rounded text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">
+            Register New Device
+        </div>
+<button class="w-14 h-14 bg-primary-container text-on-primary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</body></html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NOC Console - Network Operations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#f8f7ff",
+                    "on-surface": "#dae2fd",
+                    "surface-variant": "#2d3449",
+                    "on-error": "#690005",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface": "#0b1326",
+                    "primary-container": "#0066ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-tint": "#b3c5ff",
+                    "inverse-primary": "#0054d6",
+                    "on-secondary": "#213145",
+                    "primary-fixed": "#dae1ff",
+                    "on-surface-variant": "#c2c6d8",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-primary": "#002b75",
+                    "on-error-container": "#ffdad6",
+                    "secondary-container": "#3a4a5f",
+                    "tertiary-container": "#cc4204",
+                    "tertiary": "#ffb59d",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface-container": "#171f33",
+                    "inverse-surface": "#dae2fd",
+                    "inverse-on-surface": "#283044",
+                    "on-secondary-container": "#a9bad3",
+                    "surface-container-high": "#222a3d",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-bright": "#31394d",
+                    "surface-dim": "#0b1326",
+                    "on-tertiary": "#5d1900",
+                    "outline": "#8c90a1",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline-variant": "#424656",
+                    "on-background": "#dae2fd",
+                    "secondary-fixed": "#d3e4fe",
+                    "background": "#0b1326",
+                    "surface-container-low": "#131b2e",
+                    "surface-container-lowest": "#060e20",
+                    "primary": "#b3c5ff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-primary-fixed": "#001849",
+                    "error-container": "#93000a",
+                    "secondary": "#b7c8e1",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#2d3449",
+                    "on-secondary-fixed-variant": "#38485d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "margin": "24px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "unit": "4px",
+                    "xs": "4px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-base": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "data-mono": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-base": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+        }
+    </style>
+</head>
+<body class="font-body-base overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-slate-950 border-b border-slate-800 flex justify-between items-center w-full px-6 h-14 max-w-[1920px] mx-auto docked full-width top-0 z-40 shadow-none font-inter text-sm antialiased">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-tight text-slate-100">NOC Console</span>
+<div class="hidden md:flex gap-6">
+<a class="text-blue-500 font-semibold cursor-pointer active:opacity-80 transition-colors" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-slate-100 cursor-pointer active:opacity-80 transition-colors" href="#">Inventory</a>
+<a class="text-slate-400 hover:text-slate-100 cursor-pointer active:opacity-80 transition-colors" href="#">Switches</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-data-mono text-slate-400 text-xs py-1 px-2 bg-slate-900 rounded">Scan: 14:02:11</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-slate-100" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-slate-100" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<div class="flex h-[calc(100vh-3.5rem)] overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 flex flex-col h-full z-50 overflow-y-auto bg-slate-950 border-r border-slate-800 docked left-0 h-screen w-64 pt-14">
+<div class="p-6 border-b border-slate-900 mb-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-500" data-icon="hub">hub</span>
+</div>
+<div>
+<h2 class="text-blue-500 font-black text-xs uppercase tracking-wider">Network Ops</h2>
+<p class="text-[10px] text-slate-500 uppercase tracking-[0.2em]">Vigilant System</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="bg-blue-500/10 text-blue-500 border-l-2 border-blue-500 px-4 py-3 flex items-center gap-3 font-inter text-xs font-medium uppercase tracking-wider transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 hover:bg-slate-900 px-4 py-3 flex items-center gap-3 font-inter text-xs font-medium uppercase tracking-wider transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 hover:bg-slate-900 px-4 py-3 flex items-center gap-3 font-inter text-xs font-medium uppercase tracking-wider transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span>Switches</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 hover:bg-slate-900 px-4 py-3 flex items-center gap-3 font-inter text-xs font-medium uppercase tracking-wider transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Audit Log</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 hover:bg-slate-900 px-4 py-3 flex items-center gap-3 font-inter text-xs font-medium uppercase tracking-wider transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-900">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-800"></div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-semibold text-slate-200 truncate">System Admin</p>
+<p class="text-[10px] text-slate-500 truncate">Vigilant Node 01</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 overflow-y-auto bg-background p-margin">
+<!-- Warning Banner -->
+<div class="mb-gutter flex items-center justify-between bg-error-container/20 border-l-4 border-error p-3 rounded-r-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<div>
+<span class="text-error font-bold text-sm">STALE DATA DETECTED:</span>
+<span class="text-on-error-container text-sm ml-1">Ubiquiti Edge Cluster 04 data is 72 minutes old. Manual sync may be required.</span>
+</div>
+</div>
+<button class="bg-error text-on-error px-3 py-1 rounded text-xs font-bold uppercase tracking-tight hover:opacity-90 transition-opacity">
+                    Force Rescan
+                </button>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Health Summary & Job Progress (8 Cols) -->
+<div class="col-span-12 lg:col-span-8 space-y-gutter">
+<!-- Summary Cards Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Total Devices -->
+<div class="bg-surface-container border border-outline-variant p-lg flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-label-caps text-on-surface-variant font-label-caps uppercase">Total Assets</span>
+<span class="material-symbols-outlined text-primary" data-icon="router">router</span>
+</div>
+<div class="mt-4">
+<h3 class="text-display-lg font-display-lg text-on-surface">1,402</h3>
+<div class="h-10 mt-2 flex items-end gap-1">
+<div class="w-full bg-primary/20 h-4 rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-6 rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-5 rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-8 rounded-t-sm"></div>
+<div class="w-full bg-primary h-10 rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<!-- Cambium Status -->
+<div class="bg-surface-container border border-outline-variant p-lg">
+<span class="text-label-caps text-on-surface-variant font-label-caps uppercase">Cambium Health</span>
+<div class="mt-4 flex items-baseline gap-2">
+<h3 class="text-display-lg font-display-lg text-on-surface">854</h3>
+<span class="text-xs text-on-surface-variant">/ 860 Online</span>
+</div>
+<div class="mt-3 flex gap-2">
+<div class="flex-1 bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 98%;"></div>
+</div>
+</div>
+<div class="mt-4 flex justify-between text-[10px] uppercase font-bold tracking-widest">
+<span class="text-primary">99.3% Uptime</span>
+<span class="text-error">6 Critical</span>
+</div>
+</div>
+<!-- Ubiquiti Status -->
+<div class="bg-surface-container border border-outline-variant p-lg">
+<span class="text-label-caps text-on-surface-variant font-label-caps uppercase">Ubiquiti Health</span>
+<div class="mt-4 flex items-baseline gap-2">
+<h3 class="text-display-lg font-display-lg text-on-surface">548</h3>
+<span class="text-xs text-on-surface-variant">/ 612 Online</span>
+</div>
+<div class="mt-3 flex gap-2">
+<div class="flex-1 bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full" style="width: 82%;"></div>
+</div>
+</div>
+<div class="mt-4 flex justify-between text-[10px] uppercase font-bold tracking-widest">
+<span class="text-tertiary">82.1% Uptime</span>
+<span class="text-error">64 Critical</span>
+</div>
+</div>
+</div>
+<!-- Job/Scan Health Visualization -->
+<div class="bg-surface-container border border-outline-variant p-gutter">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-headline-md font-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+                                Active Systems Indexing
+                            </h4>
+<span class="text-[10px] font-mono bg-primary-container text-on-primary-container px-2 py-0.5 rounded">4 JOBS RUNNING</span>
+</div>
+<div class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Cambium Sync Engine</span>
+<span class="text-primary font-mono">84%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-primary h-full" style="width: 84%;"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Ubiquiti API Scraper</span>
+<span class="text-tertiary font-mono">12% - STALLED</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-tertiary h-full" style="width: 12%;"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Global Telemetry Push</span>
+<span class="text-primary font-mono">42%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-primary h-full" style="width: 42%;"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">PostgreSQL VACUUM Job</span>
+<span class="text-primary font-mono">98%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-primary h-full" style="width: 98%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Switch Tool Status Panel -->
+<div class="bg-surface-container border border-outline-variant overflow-hidden">
+<div class="p-gutter border-b border-outline-variant flex items-center justify-between">
+<h4 class="text-headline-md font-headline-md text-on-surface">Hub Connectivity Status</h4>
+<div class="flex gap-2">
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] font-bold px-2 py-1 uppercase">Metric: Latency</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-label-caps text-outline uppercase border-b border-outline-variant">
+<th class="px-gutter py-3 font-semibold">Node ID</th>
+<th class="px-gutter py-3 font-semibold">Hub Location</th>
+<th class="px-gutter py-3 font-semibold">Switch Health</th>
+<th class="px-gutter py-3 font-semibold">Status</th>
+<th class="px-gutter py-3 font-semibold">Rtt (ms)</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-data-mono">
+<tr class="hover:bg-primary/5 transition-colors border-b border-outline-variant">
+<td class="px-gutter py-3 text-on-surface">SW-DC-01A</td>
+<td class="px-gutter py-3 text-on-surface-variant">Northern Virginia (IAD)</td>
+<td class="px-gutter py-3">
+<div class="flex gap-0.5">
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary/20"></div>
+</div>
+</td>
+<td class="px-gutter py-3">
+<span class="inline-flex items-center gap-1.5 bg-primary-container/20 text-primary-fixed text-[10px] px-2 py-0.5 rounded border border-primary/20 uppercase font-bold">Optimal</span>
+</td>
+<td class="px-gutter py-3 text-on-surface">12.4</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors border-b border-outline-variant">
+<td class="px-gutter py-3 text-on-surface">SW-TX-09C</td>
+<td class="px-gutter py-3 text-on-surface-variant">Dallas Core (DFW)</td>
+<td class="px-gutter py-3">
+<div class="flex gap-0.5">
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+</div>
+</td>
+<td class="px-gutter py-3">
+<span class="inline-flex items-center gap-1.5 bg-primary-container/20 text-primary-fixed text-[10px] px-2 py-0.5 rounded border border-primary/20 uppercase font-bold">Optimal</span>
+</td>
+<td class="px-gutter py-3 text-on-surface">24.1</td>
+</tr>
+<tr class="hover:bg-tertiary/5 transition-colors border-b border-outline-variant">
+<td class="px-gutter py-3 text-on-surface border-l-4 border-tertiary">SW-CA-02B</td>
+<td class="px-gutter py-3 text-on-surface-variant">San Jose Edge (SJC)</td>
+<td class="px-gutter py-3">
+<div class="flex gap-0.5">
+<div class="w-1.5 h-4 bg-tertiary"></div>
+<div class="w-1.5 h-4 bg-tertiary"></div>
+<div class="w-1.5 h-4 bg-tertiary/20"></div>
+<div class="w-1.5 h-4 bg-tertiary/20"></div>
+<div class="w-1.5 h-4 bg-tertiary/20"></div>
+</div>
+</td>
+<td class="px-gutter py-3">
+<span class="inline-flex items-center gap-1.5 bg-tertiary-container/20 text-tertiary text-[10px] px-2 py-0.5 rounded border border-tertiary/20 uppercase font-bold">Degraded</span>
+</td>
+<td class="px-gutter py-3 text-tertiary">145.8</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors border-b border-outline-variant">
+<td class="px-gutter py-3 text-on-surface">SW-NY-14D</td>
+<td class="px-gutter py-3 text-on-surface-variant">NYC Metro (LGA)</td>
+<td class="px-gutter py-3">
+<div class="flex gap-0.5">
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary"></div>
+<div class="w-1.5 h-4 bg-primary/20"></div>
+</div>
+</td>
+<td class="px-gutter py-3">
+<span class="inline-flex items-center gap-1.5 bg-primary-container/20 text-primary-fixed text-[10px] px-2 py-0.5 rounded border border-primary/20 uppercase font-bold">Optimal</span>
+</td>
+<td class="px-gutter py-3 text-on-surface">8.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions & Feed (4 Cols) -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- Quick Actions -->
+<div class="bg-surface-container border border-outline-variant p-gutter">
+<h4 class="text-label-caps text-on-surface-variant mb-4 uppercase tracking-widest">Command Center</h4>
+<div class="grid grid-cols-2 gap-sm">
+<button class="flex flex-col items-center justify-center gap-2 p-4 bg-surface-container-high border border-outline-variant rounded hover:bg-primary/10 hover:border-primary transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="refresh">refresh</span>
+<span class="text-[10px] font-bold uppercase tracking-tight text-on-surface">Global Scan</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 bg-surface-container-high border border-outline-variant rounded hover:bg-primary/10 hover:border-primary transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="add_box">add_box</span>
+<span class="text-[10px] font-bold uppercase tracking-tight text-on-surface">Add Switch</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 bg-surface-container-high border border-outline-variant rounded hover:bg-primary/10 hover:border-primary transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="terminal">terminal</span>
+<span class="text-[10px] font-bold uppercase tracking-tight text-on-surface">Shell Access</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 bg-surface-container-high border border-outline-variant rounded hover:bg-primary/10 hover:border-primary transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="download">download</span>
+<span class="text-[10px] font-bold uppercase tracking-tight text-on-surface">Export Log</span>
+</button>
+</div>
+</div>
+<!-- Recent Activity Feed -->
+<div class="bg-surface-container border border-outline-variant flex flex-col h-[500px]">
+<div class="p-gutter border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h4 class="text-label-caps text-on-surface-variant uppercase tracking-widest">System Events</h4>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="filter_list">filter_list</span>
+</div>
+<div class="flex-1 overflow-y-auto p-gutter space-y-4">
+<!-- Feed Item -->
+<div class="flex gap-3 relative pb-4 before:content-[''] before:absolute before:left-2 before:top-6 before:bottom-0 before:w-px before:bg-outline-variant last:before:hidden">
+<div class="w-4 h-4 rounded-full bg-primary flex-shrink-0 mt-1 ring-4 ring-surface"></div>
+<div class="space-y-1">
+<p class="text-xs text-on-surface"><span class="font-bold">System</span> initiated Cambium differential sync</p>
+<p class="text-[10px] font-data-mono text-on-surface-variant">14:02:11 · EVENT_7741</p>
+</div>
+</div>
+<!-- Feed Item -->
+<div class="flex gap-3 relative pb-4 before:content-[''] before:absolute before:left-2 before:top-6 before:bottom-0 before:w-px before:bg-outline-variant last:before:hidden">
+<div class="w-4 h-4 rounded-full bg-tertiary flex-shrink-0 mt-1 ring-4 ring-surface"></div>
+<div class="space-y-1">
+<p class="text-xs text-on-surface"><span class="font-bold">Admin</span> updated configuration on <span class="text-tertiary font-mono">SW-TX-09C</span></p>
+<p class="text-[10px] font-data-mono text-on-surface-variant">13:58:44 · USER_ACT</p>
+</div>
+</div>
+<!-- Feed Item -->
+<div class="flex gap-3 relative pb-4 before:content-[''] before:absolute before:left-2 before:top-6 before:bottom-0 before:w-px before:bg-outline-variant last:before:hidden">
+<div class="w-4 h-4 rounded-full bg-error flex-shrink-0 mt-1 ring-4 ring-surface"></div>
+<div class="space-y-1">
+<p class="text-xs text-on-surface"><span class="font-bold">Alert</span> connection lost to Edge Node <span class="text-error font-mono">UK-LDN-44</span></p>
+<p class="text-[10px] font-data-mono text-on-surface-variant">13:42:01 · CRIT_ERR</p>
+</div>
+</div>
+<!-- Feed Item -->
+<div class="flex gap-3 relative pb-4 before:content-[''] before:absolute before:left-2 before:top-6 before:bottom-0 before:w-px before:bg-outline-variant last:before:hidden">
+<div class="w-4 h-4 rounded-full bg-primary flex-shrink-0 mt-1 ring-4 ring-surface"></div>
+<div class="space-y-1">
+<p class="text-xs text-on-surface"><span class="font-bold">System</span> daily inventory report generated</p>
+<p class="text-[10px] font-data-mono text-on-surface-variant">13:00:00 · AUTO_RPT</p>
+</div>
+</div>
+<!-- Feed Item -->
+<div class="flex gap-3 relative pb-4 before:content-[''] before:absolute before:left-2 before:top-6 before:bottom-0 before:w-px before:bg-outline-variant last:before:hidden">
+<div class="w-4 h-4 rounded-full bg-slate-500 flex-shrink-0 mt-1 ring-4 ring-surface"></div>
+<div class="space-y-1">
+<p class="text-xs text-on-surface"><span class="font-bold">System</span> routine DB vacuum completed</p>
+<p class="text-[10px] font-data-mono text-on-surface-variant">12:15:33 · MAINT_LOG</p>
+</div>
+</div>
+<!-- Feed Item -->
+<div class="flex gap-3 relative pb-4 before:content-[''] before:absolute before:left-2 before:top-6 before:bottom-0 before:w-px before:bg-outline-variant last:before:hidden">
+<div class="w-4 h-4 rounded-full bg-primary flex-shrink-0 mt-1 ring-4 ring-surface"></div>
+<div class="space-y-1">
+<p class="text-xs text-on-surface"><span class="font-bold">Auth</span> successful login for <span class="font-bold italic">j.doe</span></p>
+<p class="text-[10px] font-data-mono text-on-surface-variant">11:59:02 · LOGIN_OK</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Floating Action Button for Emergency Manual Overrides (Contextual) -->
+<div class="fixed bottom-6 right-6 z-50">
+<button class="bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="bolt">bolt</span>
+</button>
+</div>
+</body></html>

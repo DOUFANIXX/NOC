@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#f8f7ff",
+                    "on-surface": "#dae2fd",
+                    "surface-variant": "#2d3449",
+                    "on-error": "#690005",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface": "#0b1326",
+                    "primary-container": "#0066ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-tint": "#b3c5ff",
+                    "inverse-primary": "#0054d6",
+                    "on-secondary": "#213145",
+                    "primary-fixed": "#dae1ff",
+                    "on-surface-variant": "#c2c6d8",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-primary": "#002b75",
+                    "on-error-container": "#ffdad6",
+                    "secondary-container": "#3a4a5f",
+                    "tertiary-container": "#cc4204",
+                    "tertiary": "#ffb59d",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface-container": "#171f33",
+                    "inverse-surface": "#dae2fd",
+                    "inverse-on-surface": "#283044",
+                    "on-secondary-container": "#a9bad3",
+                    "surface-container-high": "#222a3d",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-bright": "#31394d",
+                    "surface-dim": "#0b1326",
+                    "on-tertiary": "#5d1900",
+                    "outline": "#8c90a1",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline-variant": "#424656",
+                    "on-background": "#dae2fd",
+                    "secondary-fixed": "#d3e4fe",
+                    "background": "#0b1326",
+                    "surface-container-low": "#131b2e",
+                    "surface-container-lowest": "#060e20",
+                    "primary": "#b3c5ff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-primary-fixed": "#001849",
+                    "error-container": "#93000a",
+                    "secondary": "#b7c8e1",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#2d3449",
+                    "on-secondary-fixed-variant": "#38485d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "margin": "24px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "unit": "4px",
+                    "xs": "4px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-base": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "data-mono": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-base": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #171f33 25%, #222a3d 50%, #171f33 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base antialiased">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 flex flex-col h-full z-50 overflow-y-auto bg-slate-950 border-r border-slate-800 w-64 docked">
+<div class="px-6 py-8">
+<h1 class="text-blue-500 font-black text-lg">Network Ops</h1>
+<p class="text-slate-500 text-[10px] uppercase tracking-widest mt-1">Vigilant System</p>
+</div>
+<nav class="flex flex-col flex-1">
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Dashboard</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Inventory</span>
+</a>
+<a class="bg-blue-500/10 text-blue-500 border-l-2 border-blue-500 px-4 py-3 flex items-center gap-3 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Switches</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Audit Log</span>
+</a>
+<a class="text-slate-500 hover:text-slate-200 px-4 py-3 flex items-center gap-3 hover:bg-slate-900 transition-all duration-200 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-800">
+<div class="flex items-center gap-3 px-2 py-3">
+<div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400">account_circle</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-slate-200 truncate">System Administrator</p>
+<p class="text-[10px] text-slate-500">Node: 442-PROD</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 min-h-screen flex flex-col">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-slate-950 text-slate-100 font-inter text-sm antialiased docked full-width top-0 z-40 border-b border-slate-800 flex justify-between items-center w-full px-6 h-14 max-w-[1920px]">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold tracking-tight text-slate-100 uppercase">NOC Console</span>
+<div class="h-4 w-[1px] bg-slate-800"></div>
+<nav class="flex items-center gap-6">
+<span class="text-blue-500 font-semibold cursor-pointer active:opacity-80 transition-colors">Inspection</span>
+<span class="text-slate-400 hover:text-slate-100 transition-colors cursor-pointer">Topology</span>
+<span class="text-slate-400 hover:text-slate-100 transition-colors cursor-pointer">Traffic</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+<span class="material-symbols-outlined text-[16px]">search</span>
+<input class="bg-transparent border-none outline-none text-xs focus:ring-0 w-32" placeholder="Search Node ID..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-[11px] font-medium text-slate-500 tabular-nums">Scan: 14:02:11</div>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-slate-100">notifications</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-slate-100">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Inspection Workflow -->
+<div class="p-margin max-w-[1920px] w-full mx-auto">
+<!-- Hierarchical Selectors -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-lg">
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-on-surface-variant uppercase">Site</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded p-sm text-body-base appearance-none focus:border-primary-container focus:ring-1 focus:ring-primary-container">
+<option>North American Region</option>
+<option>European Union</option>
+<option>APAC Hub</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-on-surface-variant uppercase">City</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded p-sm text-body-base appearance-none focus:border-primary-container focus:ring-1 focus:ring-primary-container">
+<option>Chicago, IL</option>
+<option>New York, NY</option>
+<option>Seattle, WA</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-on-surface-variant uppercase">Area</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded p-sm text-body-base appearance-none focus:border-primary-container focus:ring-1 focus:ring-primary-container">
+<option>DC-04 Server Hall</option>
+<option>DC-02 Storage Tier</option>
+<option>HQ Office Floor 12</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-caps text-on-surface-variant uppercase">Switch Node</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant rounded p-sm text-body-base appearance-none focus:border-primary-container focus:ring-1 focus:ring-primary-container">
+<option>SW-7742-AGG-01</option>
+<option>SW-7742-AGG-02 (Standby)</option>
+<option>SW-8810-CORE</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Switch Metadata Header -->
+<section class="bg-surface-container rounded-lg border border-outline-variant p-lg mb-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-xl">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[32px]">router</span>
+</div>
+<div>
+<h2 class="font-headline-md text-on-surface">SW-7742-AGG-01</h2>
+<p class="text-body-sm text-on-surface-variant flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                Operational • Last polled 14s ago
+                            </p>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 lg:flex items-center gap-lg">
+<div class="flex flex-col">
+<span class="font-label-caps text-on-surface-variant">Model</span>
+<span class="font-data-mono text-on-surface">Nexus 9300-EX</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-on-surface-variant">Management IP</span>
+<span class="font-data-mono text-on-surface">10.244.12.82</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-on-surface-variant">Uptime</span>
+<span class="font-data-mono text-on-surface">142d 12h 04m</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-on-surface-variant">Firmware</span>
+<span class="font-data-mono text-on-surface">NX-OS 9.3(10)</span>
+</div>
+</div>
+<div class="flex items-center gap-lg pt-md lg:pt-0 border-t lg:border-t-0 border-outline-variant">
+<div class="flex flex-col items-center">
+<span class="font-label-caps text-on-surface-variant">CPU Load</span>
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-variant" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-primary-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="140" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-data-mono text-xs">22%</span>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-caps text-on-surface-variant">Temp</span>
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-variant" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-tertiary-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="110" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-data-mono text-xs">38°C</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Data Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Port Results Table -->
+<div class="xl:col-span-9 bg-surface-container-low rounded border border-outline-variant overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-on-surface">Interface Status</span>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded uppercase font-bold">48 Ports Total</span>
+</div>
+<div class="flex gap-sm">
+<button class="p-2 hover:bg-surface-variant rounded text-on-surface-variant">
+<span class="material-symbols-outlined">filter_alt</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded text-on-surface-variant">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50 border-b border-outline-variant">
+<th class="px-lg py-sm font-label-caps text-on-surface-variant uppercase">Port</th>
+<th class="px-lg py-sm font-label-caps text-on-surface-variant uppercase">Status</th>
+<th class="px-lg py-sm font-label-caps text-on-surface-variant uppercase">Speed/Duplex</th>
+<th class="px-lg py-sm font-label-caps text-on-surface-variant uppercase">VLAN</th>
+<th class="px-lg py-sm font-label-caps text-on-surface-variant uppercase">PoE Status</th>
+<th class="px-lg py-sm font-label-caps text-on-surface-variant uppercase">Description</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Real Rows -->
+<tr class="hover:bg-primary/5 transition-colors cursor-pointer group">
+<td class="px-lg py-3 font-data-mono text-on-surface">Eth 1/1</td>
+<td class="px-lg py-3">
+<span class="inline-flex items-center gap-1 bg-emerald-500/10 text-emerald-500 text-[11px] font-bold px-2 py-0.5 rounded border border-emerald-500/20">UP</span>
+</td>
+<td class="px-lg py-3 font-data-mono text-on-surface-variant">10G / Full</td>
+<td class="px-lg py-3 font-data-mono text-on-surface">100 (DMZ)</td>
+<td class="px-lg py-3 text-on-surface-variant">-</td>
+<td class="px-lg py-3 text-body-sm text-on-surface-variant">Trunk to CORE-SW-01</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors cursor-pointer group">
+<td class="px-lg py-3 font-data-mono text-on-surface">Eth 1/2</td>
+<td class="px-lg py-3">
+<span class="inline-flex items-center gap-1 bg-emerald-500/10 text-emerald-500 text-[11px] font-bold px-2 py-0.5 rounded border border-emerald-500/20">UP</span>
+</td>
+<td class="px-lg py-3 font-data-mono text-on-surface-variant">1G / Full</td>
+<td class="px-lg py-3 font-data-mono text-on-surface">20 (Voice)</td>
+<td class="px-lg py-3 text-emerald-400 font-data-mono">15.4W</td>
+<td class="px-lg py-3 text-body-sm text-on-surface-variant">VoIP-Phone-B31</td>
+</tr>
+<!-- Connection Failure Mock State -->
+<tr class="bg-error-container/5">
+<td class="px-lg py-3 font-data-mono text-on-surface">Eth 1/3</td>
+<td class="px-lg py-3">
+<span class="inline-flex items-center gap-1 bg-error/10 text-error text-[11px] font-bold px-2 py-0.5 rounded border border-error/20">DOWN</span>
+</td>
+<td class="px-lg py-3 font-data-mono text-on-surface-variant">Auto / Auto</td>
+<td class="px-lg py-3 font-data-mono text-on-surface">1 (Default)</td>
+<td class="px-lg py-3 text-on-surface-variant">-</td>
+<td class="px-lg py-3 text-body-sm text-error/80 italic flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> No Carrier Detected
+                                    </td>
+</tr>
+<!-- Loading Skeletons -->
+<tr>
+<td class="px-lg py-4"><div class="h-4 w-12 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-16 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-24 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-12 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-16 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-48 skeleton rounded"></div></td>
+</tr>
+<tr>
+<td class="px-lg py-4"><div class="h-4 w-12 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-16 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-24 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-12 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-16 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-48 skeleton rounded"></div></td>
+</tr>
+<tr>
+<td class="px-lg py-4"><div class="h-4 w-12 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-16 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-24 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-12 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-16 skeleton rounded"></div></td>
+<td class="px-lg py-4"><div class="h-4 w-48 skeleton rounded"></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Sidebar: Diagnostics & Action -->
+<div class="xl:col-span-3 flex flex-col gap-gutter">
+<!-- Connectivity Status Card -->
+<div class="bg-surface-container rounded border border-outline-variant p-md">
+<h3 class="font-label-caps text-on-surface-variant mb-md uppercase">Console Link</h3>
+<div class="flex items-center gap-md p-md bg-emerald-500/5 border border-emerald-500/20 rounded">
+<span class="material-symbols-outlined text-emerald-500">link</span>
+<div>
+<p class="text-body-sm font-bold text-emerald-500">Connected</p>
+<p class="text-[10px] text-on-surface-variant">via Jump-Host-A2</p>
+</div>
+</div>
+</div>
+<!-- Connection Failure State Visualization (Unreachable) -->
+<div class="bg-error-container/10 border border-error-container rounded p-md">
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-error">cloud_off</span>
+<h3 class="font-label-caps text-error uppercase">Node Unreachable</h3>
+</div>
+<p class="text-body-sm text-on-error-container mb-md">
+                            The system is unable to establish an SSH session with SW-7742-AGG-02. This might indicate a routing loop or hardware failure.
+                        </p>
+<button class="w-full bg-error-container text-on-error-container py-2 rounded font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
+                            Initiate Reset
+                        </button>
+</div>
+<!-- Power Metrics Sparkline -->
+<div class="bg-surface-container rounded border border-outline-variant p-md">
+<div class="flex justify-between items-end mb-sm">
+<div>
+<h3 class="font-label-caps text-on-surface-variant uppercase mb-1">Power Consumption</h3>
+<p class="text-display-lg leading-none text-primary">412W</p>
+</div>
+<span class="text-xs text-emerald-400 font-data-mono flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_drop_down</span> 4%
+                            </span>
+</div>
+<div class="h-12 w-full mt-2 relative overflow-hidden">
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<path d="M0,40 Q20,35 40,38 T80,30 T120,35 T160,25 T200,32 T240,20 L240,48 L0,48 Z" fill="rgba(0, 102, 255, 0.1)"></path>
+<path d="M0,40 Q20,35 40,38 T80,30 T120,35 T160,25 T200,32 T240,20" fill="transparent" stroke="#0066ff" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- Recent Logs -->
+<div class="bg-surface-container rounded border border-outline-variant flex-1 overflow-hidden flex flex-col">
+<div class="px-md py-sm border-b border-outline-variant flex justify-between items-center bg-surface-container-high">
+<span class="font-label-caps text-on-surface-variant uppercase">Syslog Stream</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] animate-pulse">radio_button_checked</span>
+</div>
+<div class="p-md space-y-md font-data-mono text-[11px] overflow-y-auto max-h-[300px]">
+<div class="flex gap-2">
+<span class="text-on-surface-variant opacity-50">14:02:10</span>
+<span class="text-emerald-400">[INFO]</span>
+<span class="text-on-surface">Config sync complete.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-on-surface-variant opacity-50">14:01:45</span>
+<span class="text-tertiary">[WARN]</span>
+<span class="text-on-surface">Temp threshold 38C reached.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-on-surface-variant opacity-50">13:58:02</span>
+<span class="text-emerald-400">[INFO]</span>
+<span class="text-on-surface">Eth 1/2 state changed to UP.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-on-surface-variant opacity-50">13:55:12</span>
+<span class="text-error">[CRIT]</span>
+<span class="text-on-surface">Unauthorized access attempt.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Float Action for Inspection (Shared FAB) -->
+<button class="fixed bottom-margin right-margin w-14 h-14 bg-primary-container text-on-primary-container rounded-full shadow-lg hover:shadow-primary-container/20 flex items-center justify-center active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</button>
+</main>
+</body></html>
