@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}{{ title }} | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}System{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">The requested surface could not be completed successfully.</p>{% endblock %}
+
+{% block content %}
+{{ ui.banner(title, message, "danger") }}
+{% endblock %}

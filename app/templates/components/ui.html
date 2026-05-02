@@ -1,0 +1,79 @@
+{% macro badge(label, tone='neutral', meta='') -%}
+<span class="badge badge-{{ tone }}">
+  <span>{{ label }}</span>
+  {% if meta %}<small>{{ meta }}</small>{% endif %}
+</span>
+{%- endmacro %}
+
+{% macro stat_card(title, value, meta='', tone='neutral') -%}
+<article class="surface stat-card">
+  <div class="surface__header">
+    <div class="surface__title">{{ title }}</div>
+    {{ badge(tone|title, tone) }}
+  </div>
+  <div class="stat-card__value">{{ value }}</div>
+  {% if meta %}<div class="surface__meta">{{ meta }}</div>{% endif %}
+</article>
+{%- endmacro %}
+
+{% macro mini_stat(label, value, meta='', tone='neutral') -%}
+<article class="mini-stat mini-stat-{{ tone }}">
+  <div class="mini-stat__label">{{ label }}</div>
+  <div class="mini-stat__value">{{ value }}</div>
+  {% if meta %}<div class="mini-stat__meta">{{ meta }}</div>{% endif %}
+</article>
+{%- endmacro %}
+
+{% macro signal_chip(label, value, tone='neutral') -%}
+<div class="signal-chip signal-chip-{{ tone }}">
+  <span>{{ label }}</span>
+  <strong>{{ value }}</strong>
+</div>
+{%- endmacro %}
+
+{% macro feature_card(title, message, tone='neutral', eyebrow='') -%}
+<article class="feature-card feature-card-{{ tone }}">
+  {% if eyebrow %}<div class="feature-card__eyebrow">{{ eyebrow }}</div>{% endif %}
+  <div class="feature-card__title">{{ title }}</div>
+  <p>{{ message }}</p>
+</article>
+{%- endmacro %}
+
+{% macro banner(title, message, tone='warning', action_label=None, action_href=None) -%}
+<section class="banner banner-{{ tone }}">
+  <div>
+    <div class="banner__title">{{ title }}</div>
+    <div class="banner__message">{{ message }}</div>
+  </div>
+  {% if action_label and action_href %}
+  <a class="button button-secondary" href="{{ action_href }}">{{ action_label }}</a>
+  {% endif %}
+</section>
+{%- endmacro %}
+
+{% macro empty_state(title, message, action_label=None, action_href=None) -%}
+<section class="empty-state">
+  <div class="empty-state__title">{{ title }}</div>
+  <p>{{ message }}</p>
+  {% if action_label and action_href %}
+  <a class="button button-secondary" href="{{ action_href }}">{{ action_label }}</a>
+  {% endif %}
+</section>
+{%- endmacro %}
+
+{% macro pagination(pager, param='page') -%}
+{% if pager.total_pages > 1 %}
+<nav class="pagination" aria-label="Pagination">
+  <div class="pagination__summary">
+    Showing {{ pager.start_item }}-{{ pager.end_item }} of {{ pager.total_items }}
+  </div>
+  <div class="pagination__controls">
+    <a class="pagination__link {% if not pager.has_prev %}is-disabled{% endif %}" {% if pager.has_prev %}href="{{ query_with_param(param, pager.prev_page) }}"{% endif %}>Previous</a>
+    {% for value in pager.pages %}
+    <a class="pagination__link {% if value == pager.page %}is-active{% endif %}" href="{{ query_with_param(param, value) }}">{{ value }}</a>
+    {% endfor %}
+    <a class="pagination__link {% if not pager.has_next %}is-disabled{% endif %}" {% if pager.has_next %}href="{{ query_with_param(param, pager.next_page) }}"{% endif %}>Next</a>
+  </div>
+</nav>
+{% endif %}
+{%- endmacro %}

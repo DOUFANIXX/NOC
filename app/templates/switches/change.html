@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}Port Change Workflow | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Switches{% endblock %}
+{% block page_title %}Port Description and Enable Workflow{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Two-step review flow for controlled description updates and optional port enable actions.</p>{% endblock %}
+
+{% block content %}
+{% if workflow_feedback %}
+{{ ui.banner(workflow_feedback.title, workflow_feedback.message, workflow_feedback.tone) }}
+{% endif %}
+
+<section class="surface">
+  <div class="workflow-stepper">
+    <div class="workflow-step {% if not pending %}is-active{% endif %}">
+      <div class="workflow-step__index">01</div>
+      <div class="workflow-step__title">Scope the change</div>
+      <div class="workflow-step__meta">Choose inventory, load the target switch, and identify an eligible undocumented port.</div>
+    </div>
+    <div class="workflow-step {% if pending %}is-active is-warning{% endif %}">
+      <div class="workflow-step__index">02</div>
+      <div class="workflow-step__title">Review preview</div>
+      <div class="workflow-step__meta">Confirm target, command preview, risk level, and preview freshness.</div>
+    </div>
+    <div class="workflow-step {% if pending and not pending_context.is_stale %}is-warning{% endif %}">
+      <div class="workflow-step__index">03</div>
+      <div class="workflow-step__title">Apply or discard</div>
+      <div class="workflow-step__meta">The backend re-validates the port before sending any device command.</div>
+    </div>
+  </div>
+</section>
+
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Controlled Change</div>
+        <div class="surface__title">Safe switch write workflow</div>
+        <p class="hero-panel__lead">This path is intentionally slower than inspection. It stages a preview, exposes risk clearly, and makes the operator acknowledge intent before any description or <code>undo shutdown</code> command can reach the switch.</p>
+      </div>
+      {{ ui.badge("Operator/Admin", "warning") }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Inventory", inventory_type|upper, "Switch inventory currently in scope for this staged change.", "info") }}
+      {{ ui.mini_stat("Pending Preview", "Yes" if pending else "No", "Generated previews expire after five minutes.", "warning" if pending else "neutral") }}
+      {{ ui.mini_stat("Selected Switch", selected_record.name if selected_record else "-", "Loaded target for port discovery and preview generation.", "neutral") }}
+      {{ ui.mini_stat("Eligible Ports", available_ports|length, "Undocumented ports available for safe description updates.", "success" if available_ports else "neutral") }}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Operational Safety</div>
+      <div class="surface__title">Guardrails in force</div>
+      <div class="surface__meta">This route re-checks port eligibility at confirmation time and expires previews after {{ pending_context.expires_in_minutes if pending_context else 5 }} minutes.</div>
+    </div>
+    <div class="context-list">
+      <div class="context-list__item">
+        <strong>Preview required</strong>
+        <span>No write action can execute until the operator has generated a preview in the current session.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Freshness enforced</strong>
+        <span>Stale previews are rejected and must be regenerated before confirmation is accepted.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Permissions enforced</strong>
+        <span>Viewer sessions remain read only. Operator and admin roles can stage and confirm changes.</span>
+      </div>
+    </div>
+    {% if selected_record %}
+    <dl class="definition-list">
+      <div><dt>Switch</dt><dd>{{ selected_record.name }}</dd></div>
+      <div><dt>IP</dt><dd>{{ selected_record.ip }}</dd></div>
+      <div><dt>Inventory</dt><dd>{{ inventory_type|upper }}</dd></div>
+      <div><dt>Pending Review</dt><dd>{{ "Yes" if pending else "No" }}</dd></div>
+    </dl>
+    {% else %}
+    {{ ui.empty_state("Select a target", "Choose a switch to begin the controlled change flow.") }}
+    {% endif %}
+  </aside>
+</section>
+
+<section class="section-grid section-grid--wide">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Scope Selection</div>
+        <div class="surface__title">Change scope</div>
+        <div class="surface__meta">Select the inventory and target switch before loading the currently eligible ports.</div>
+      </div>
+    </div>
+
+    <form method="get" class="toolbar toolbar--filters">
+      <select name="inventory_type">
+        <option value="ultra" {% if inventory_type == 'ultra' %}selected{% endif %}>Ultra inventory</option>
+        <option value="ht" {% if inventory_type == 'ht' %}selected{% endif %}>HT inventory</option>
+      </select>
+      <button class="button button-secondary" type="submit">Switch Inventory</button>
+    </form>
+
+    <form method="post" class="stack" style="margin-top: 16px;">
+      {{ csrf_input() }}
+      <input type="hidden" name="inventory_type" value="{{ inventory_type }}">
+      <label class="field">
+        <span>Switch</span>
+        <select name="switch_id" required class="{% if form_errors.switch_id %}input-invalid{% endif %}">
+          <option value="">Select a switch</option>
+          {% if inventory_type == 'ultra' %}
+            {% for city, areas in grouped.items() %}
+              {% for area, switches in areas.items() %}
+                <optgroup label="{{ city }} / {{ area }}">
+                  {% for switch in switches %}
+                  <option value="{{ switch.id }}" {% if selected_record and selected_record.id == switch.id %}selected{% endif %}>
+                    {{ switch.name }} ({{ switch.ip }})
+                  </option>
+                  {% endfor %}
+                </optgroup>
+              {% endfor %}
+            {% endfor %}
+          {% else %}
+            {% for site, switches in grouped.items() %}
+              <optgroup label="{{ site }}">
+                {% for switch in switches %}
+                <option value="{{ switch.id }}" {% if selected_record and selected_record.id == switch.id %}selected{% endif %}>
+                  {{ switch.name }} ({{ switch.ip }})
+                </option>
+                {% endfor %}
+              </optgroup>
+            {% endfor %}
+          {% endif %}
+        </select>
+        {% if form_errors.switch_id %}<span class="helper-text helper-text-error">{{ form_errors.switch_id }}</span>{% endif %}
+      </label>
+      <button class="button button-primary" name="action" value="load" type="submit">Load Available Ports</button>
+    </form>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Current Context</div>
+      <div class="surface__title">Selected target state</div>
+      <div class="surface__meta">Use this rail to confirm that you are staging the change against the intended switch and inventory.</div>
+    </div>
+    {% if selected_record %}
+    <div class="signal-stack">
+      {{ ui.signal_chip('Switch', selected_record.name, 'info') }}
+      {{ ui.signal_chip('IP', selected_record.ip, 'neutral') }}
+      {{ ui.signal_chip('Available ports', available_ports|length ~ ' loaded', 'success' if available_ports else 'warning') }}
+      {{ ui.signal_chip('Preview state', 'Staged' if pending else 'Not staged', 'warning' if pending else 'neutral') }}
+    </div>
+    {% else %}
+    {{ ui.empty_state("No target in scope", "Select a switch and load ports to unlock preview staging.") }}
+    {% endif %}
+  </aside>
+</section>
+
+{% if selected_record %}
+<section class="surface">
+  <div class="surface__header">
+    <div>
+      <div class="surface__eyebrow">Stage Change</div>
+      <div class="surface__title">{{ selected_record.name }}</div>
+      <div class="surface__meta">Target IP {{ selected_record.ip }}{% if selected_record.city or selected_record.site %} | {{ selected_record.city or selected_record.site }}{% if selected_record.area %} / {{ selected_record.area }}{% endif %}{% endif %}</div>
+    </div>
+    {{ ui.badge('Eligible ports', 'success', available_ports|length ~ ' available') }}
+  </div>
+
+  {% if available_ports %}
+  <div class="split-callout">
+    <form method="post" class="stack">
+      {{ csrf_input() }}
+      <input type="hidden" name="inventory_type" value="{{ inventory_type }}">
+      <input type="hidden" name="switch_id" value="{{ selected_record.id }}">
+      <label class="field">
+        <span>Port</span>
+        <select name="port" required class="{% if form_errors.port %}input-invalid{% endif %}">
+          <option value="">Select an undocumented port</option>
+          {% for port in available_ports %}
+          <option value="{{ port }}" {% if form_data.port == port %}selected{% endif %}>{{ port }}</option>
+          {% endfor %}
+        </select>
+        {% if form_errors.port %}<span class="helper-text helper-text-error">{{ form_errors.port }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Description</span>
+        <input type="text" name="description" placeholder="Customer or location description" required value="{{ form_data.description }}" class="{% if form_errors.description %}input-invalid{% endif %}">
+        {% if form_errors.description %}<span class="helper-text helper-text-error">{{ form_errors.description }}</span>{% endif %}
+        <span class="helper-text">Use a clear operational label. The workflow rejects unsafe or ambiguous text.</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" name="enable_port" {% if form_data.enable_port %}checked{% endif %}>
+        <span>Enable port with <code>undo shutdown</code></span>
+      </label>
+      <button class="button button-primary" name="action" value="preview" type="submit">Preview Change</button>
+    </form>
+
+    <div class="risk-panel">
+      <div class="risk-panel__title">Risk guidance</div>
+      <div class="risk-panel__meta">Description-only changes stay lower risk. Enabling a port increases operational impact and will be highlighted in the preview before confirmation.</div>
+      <div class="signal-stack" style="margin-top: 12px;">
+        {{ ui.signal_chip('Description', form_data.description or 'Not staged', 'info') }}
+        {{ ui.signal_chip('Enable action', 'Included' if form_data.enable_port else 'Skipped', 'warning' if form_data.enable_port else 'neutral') }}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  {{ ui.empty_state("No undocumented ports loaded yet", "Choose a switch and load available ports to continue.") }}
+  {% endif %}
+</section>
+{% endif %}
+
+{% if pending %}
+<section class="surface surface-warning">
+  <div class="surface__header">
+    <div>
+      <div class="surface__eyebrow">Confirmation Gate</div>
+      <div class="surface__title">Confirm operational change</div>
+      <div class="surface__meta">Review this summary carefully before applying it to the device.</div>
+    </div>
+    {{ ui.badge("Review Required", "warning") }}
+  </div>
+
+  {% if pending_context and pending_context.is_stale %}
+  {{ ui.banner("Preview expired", "This preview is stale and must be regenerated before the change can be applied.", "danger") }}
+  {% endif %}
+
+  <div class="split-callout">
+    <div class="stack-divider">
+      <dl class="definition-list">
+        <div><dt>Inventory</dt><dd>{{ pending.inventory_type|upper }}</dd></div>
+        <div><dt>Switch</dt><dd>{{ pending.switch_name }}</dd></div>
+        <div><dt>Location</dt><dd>{{ pending.location or '-' }}</dd></div>
+        <div><dt>IP</dt><dd>{{ pending.switch_ip }}</dd></div>
+        <div><dt>Port</dt><dd>{{ pending.port }}</dd></div>
+        <div><dt>Description</dt><dd>{{ pending.description }}</dd></div>
+        <div><dt>Enable Port</dt><dd>{{ 'Yes' if pending.enable_port else 'No' }}</dd></div>
+        <div><dt>Risk Level</dt><dd>{{ pending.risk_level }}</dd></div>
+        <div><dt>Previewed At</dt><dd>{{ humanize_timestamp(pending.previewed_at) }}</dd></div>
+      </dl>
+      <div class="subsurface">
+        <div class="surface__title">Command preview</div>
+        <div class="surface__meta">{{ pending.summary }}</div>
+        <pre class="code-block">{{ pending.command_preview | join('\n') }}</pre>
+      </div>
+    </div>
+
+    <div class="rail-panel__stack">
+      <div class="risk-panel">
+        <div class="risk-panel__title">Apply checklist</div>
+        <div class="risk-panel__meta">Use this final pass to validate operator intent, switch target, and preview freshness.</div>
+      </div>
+      <div class="signal-stack">
+        {{ ui.signal_chip('Target port', pending.port, 'info') }}
+        {{ ui.signal_chip('Change type', 'Description + enable' if pending.enable_port else 'Description only', 'warning' if pending.enable_port else 'success') }}
+        {{ ui.signal_chip('Preview freshness', 'Expired' if pending_context and pending_context.is_stale else 'Current', 'danger' if pending_context and pending_context.is_stale else 'success') }}
+      </div>
+      <form method="post" class="stack">
+        {{ csrf_input() }}
+        <input type="hidden" name="inventory_type" value="{{ pending.inventory_type }}">
+        <label class="checkbox-row">
+          <input type="checkbox" name="confirm_ack">
+          <span>I reviewed the target, command preview, and risk level for this change.</span>
+        </label>
+        {% if form_errors.confirm_ack %}<span class="helper-text helper-text-error">{{ form_errors.confirm_ack }}</span>{% endif %}
+        <button class="button button-danger" name="action" value="confirm" type="submit">Confirm and Apply</button>
+      </form>
+      <form method="post">
+        {{ csrf_input() }}
+        <input type="hidden" name="inventory_type" value="{{ pending.inventory_type }}">
+        <button class="button button-secondary button-block" name="action" value="cancel" type="submit">Discard</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

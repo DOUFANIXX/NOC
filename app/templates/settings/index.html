@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}Settings | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Configuration{% endblock %}
+{% block page_title %}Settings and Control{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Read-only runtime, security, and path visibility for the unified console foundation.</p>{% endblock %}
+
+{% block content %}
+{{ ui.banner("Read-only configuration view", "This page exposes runtime posture and deployment visibility without rendering secrets or allowing in-app mutation.", "info") }}
+
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Runtime Snapshot</div>
+        <div class="surface__title">Deployment and safety posture</div>
+        <p class="hero-panel__lead">Use this page to verify the running environment, scan cadence, filesystem dependencies, and credential completeness before blaming device logic or operator workflows.</p>
+      </div>
+      {{ ui.badge('Read only', 'neutral') }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Scheduler", sections.telemetry[0].value, "Background scan scheduler current state.", "success" if sections.telemetry[0].value == 'Enabled' else 'warning') }}
+      {{ ui.mini_stat("Proxy Trust", sections.runtime[3].value, "Reverse-proxy awareness for internal deployment.", "info") }}
+      {{ ui.mini_stat("Secure Cookies", sections.runtime[5].value, "Session transport protection for production serving.", "warning" if sections.runtime[5].value == 'Disabled' else 'success') }}
+      {{ ui.mini_stat("Auth Model", sections.security[0].value, "Roles and CSRF remain enforced from the unified app base.", "neutral") }}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Operator Guidance</div>
+      <div class="surface__title">How to use this surface</div>
+      <div class="surface__meta">This is for validation and deployment checks, not live editing. Use docs and environment configuration to change runtime behavior.</div>
+    </div>
+    <div class="context-list">
+      <div class="context-list__item">
+        <strong>Secrets stay hidden</strong>
+        <span>Credential fields only reveal configured, partial, or missing state.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Filesystem matters</strong>
+        <span>Missing config or seed files will degrade scans, switch discovery, or persistence behavior.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Use before go-live</strong>
+        <span>Check proxy, cookies, and scheduler settings before reverse-proxy or operator rollout.</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<section class="config-grid">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Runtime</div>
+        <div class="surface__title">App runtime</div>
+        <div class="surface__meta">Current app behavior as derived from environment and tracked config.</div>
+      </div>
+    </div>
+    <dl class="definition-list">
+      {% for item in sections.runtime %}
+      <div><dt>{{ item.label }}</dt><dd>{{ item.value }}</dd></div>
+      {% endfor %}
+    </dl>
+  </article>
+
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Telemetry</div>
+        <div class="surface__title">Jobs and scheduling</div>
+        <div class="surface__meta">Current background execution and freshness timing controls.</div>
+      </div>
+    </div>
+    <dl class="definition-list">
+      {% for item in sections.telemetry %}
+      <div><dt>{{ item.label }}</dt><dd>{{ item.value }}</dd></div>
+      {% endfor %}
+    </dl>
+  </article>
+</section>
+
+<section class="section-grid section-grid--wide">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Security</div>
+        <div class="surface__title">Security posture</div>
+        <div class="surface__meta">Read-only visibility into the authentication and credential configuration state.</div>
+      </div>
+    </div>
+    <div class="record-grid record-grid--compact">
+      {% for item in sections.security %}
+      {% set tone = 'success' if item.value == 'Configured' or item.value == 'Enabled' else ('warning' if item.value == 'Partial' else 'neutral') %}
+      {% if item.value == 'Missing' %}
+        {% set tone = 'danger' %}
+      {% endif %}
+      <article class="record-card">
+        <div class="record-card__header">
+          <div>
+            <div class="record-card__title">{{ item.label }}</div>
+          </div>
+          <div class="record-card__badge-row">
+            {{ ui.badge(item.value, tone) }}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Filesystem</div>
+      <div class="surface__title">Tracked paths</div>
+      <div class="surface__meta">Tracked references used by the current unified application.</div>
+    </div>
+    <div class="signal-stack">
+      {% for item in sections.paths %}
+      {{ ui.signal_chip(item.label, 'Present' if item.exists else 'Missing', 'success' if item.exists else 'danger') }}
+      {% endfor %}
+    </div>
+  </aside>
+</section>
+
+<section class="surface">
+  <div class="surface__header">
+    <div>
+      <div class="surface__eyebrow">Filesystem and Config Paths</div>
+      <div class="surface__title">Path details</div>
+      <div class="surface__meta">Resolved locations for config, seeds, database, and logs.</div>
+    </div>
+  </div>
+  <div class="record-grid record-grid--wide">
+    {% for item in sections.paths %}
+    <article class="record-card">
+      <div class="record-card__header">
+        <div>
+          <div class="record-card__title">{{ item.label }}</div>
+          <div class="record-card__meta"><code>{{ item.value }}</code></div>
+        </div>
+        <div class="record-card__badge-row">
+          {{ ui.badge('Present' if item.exists else 'Missing', 'success' if item.exists else 'danger') }}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

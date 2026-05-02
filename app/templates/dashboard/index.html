@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}Dashboard | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Network Operations{% endblock %}
+{% block page_title %}Operations Dashboard{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Shared operational view for subscriber inventory, switch workflows, and job activity.</p>{% endblock %}
+
+{% block content %}
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Command Overview</div>
+        <div class="surface__title">Inventory health, operator readiness, and recent activity in one view.</div>
+        <p class="hero-panel__lead">This dashboard is tuned for daily NOC work: freshness signals, background scan readiness, controlled switch access, and the last operator actions that could explain current state.</p>
+      </div>
+      {{ ui.badge(current_user.role, current_user.role, 'active session') }}
+    </div>
+    <div class="hero-panel__metrics">
+      {% for card in cards %}
+      {{ ui.mini_stat(card.label, card.value, card.detail, 'success' if card.status == 'healthy' else 'warning') }}
+      {% endfor %}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Live Signals</div>
+      <div class="surface__title">Operational posture</div>
+      <div class="surface__meta">Current scan readiness, write access, and admin scope for this signed-in role.</div>
+    </div>
+    <div class="signal-stack">
+      {{ ui.signal_chip('Cambium scans', scan_controls.cambium.reason, 'success' if scan_controls.cambium.ready else 'warning') }}
+      {{ ui.signal_chip('Ubiquiti scans', scan_controls.ubiquiti.reason, 'success' if scan_controls.ubiquiti.ready else 'warning') }}
+      {{ ui.signal_chip('Change workflow', 'Enabled' if current_user.role in ['operator', 'admin'] else 'Read only', 'warning' if current_user.role in ['operator', 'admin'] else 'neutral') }}
+      {{ ui.signal_chip('Inventory admin', 'Available' if current_user.role == 'admin' else 'Restricted', 'danger' if current_user.role == 'admin' else 'neutral') }}
+    </div>
+  </aside>
+</section>
+
+<section class="surface">
+  <div class="surface__header">
+    <div>
+      <div class="surface__eyebrow">Execution</div>
+      <div class="surface__title">Quick actions</div>
+      <div class="surface__meta">Scan workflows stay queued in the background so operators can refresh inventory without freezing the UI.</div>
+    </div>
+  </div>
+  <div class="action-grid">
+    <article class="action-tile">
+      <div class="action-tile__header">
+        <div>
+          <div class="action-tile__title">Cambium refresh</div>
+          <div class="action-tile__meta">Queue a subscriber inventory import for the configured Cambium targets.</div>
+        </div>
+        {{ ui.badge('Ready' if scan_controls.cambium.ready else 'Blocked', 'success' if scan_controls.cambium.ready else 'warning') }}
+      </div>
+      <div class="action-tile__footer">
+        {% if current_user.role in ['operator', 'admin'] %}
+        <form method="post" action="{{ url_for('inventory.run_manual_scan', vendor='cambium') }}">
+          {{ csrf_input() }}
+          {% if scan_controls.cambium.running %}
+          <input type="hidden" name="action" value="restart">
+          <button class="button button-danger button-block" type="submit" {% if not scan_controls.cambium.restartable %}disabled{% endif %}>Restart Cambium Scan</button>
+          {% else %}
+          <button class="button button-primary button-block" type="submit" {% if not scan_controls.cambium.ready %}disabled{% endif %}>Run Cambium Scan</button>
+          {% endif %}
+        </form>
+        {% else %}
+        <span class="helper-text helper-text-warning">Manual scans require operator or admin permissions.</span>
+        {% endif %}
+        <span class="helper-text {% if not scan_controls.cambium.ready %}helper-text-error{% endif %}">{{ scan_controls.cambium.reason }}</span>
+      </div>
+    </article>
+
+    <article class="action-tile">
+      <div class="action-tile__header">
+        <div>
+          <div class="action-tile__title">Ubiquiti refresh</div>
+          <div class="action-tile__meta">Queue a Ubiquiti subscriber refresh while operators continue with inspections and changes.</div>
+        </div>
+        {{ ui.badge('Ready' if scan_controls.ubiquiti.ready else 'Blocked', 'success' if scan_controls.ubiquiti.ready else 'warning') }}
+      </div>
+      <div class="action-tile__footer">
+        {% if current_user.role in ['operator', 'admin'] %}
+        <form method="post" action="{{ url_for('inventory.run_manual_scan', vendor='ubiquiti') }}">
+          {{ csrf_input() }}
+          {% if scan_controls.ubiquiti.running %}
+          <input type="hidden" name="action" value="restart">
+          <button class="button button-danger button-block" type="submit" {% if not scan_controls.ubiquiti.restartable %}disabled{% endif %}>Restart Ubiquiti Scan</button>
+          {% else %}
+          <button class="button button-primary button-block" type="submit" {% if not scan_controls.ubiquiti.ready %}disabled{% endif %}>Run Ubiquiti Scan</button>
+          {% endif %}
+        </form>
+        {% else %}
+        <span class="helper-text helper-text-warning">Manual scans require operator or admin permissions.</span>
+        {% endif %}
+        <span class="helper-text {% if not scan_controls.ubiquiti.ready %}helper-text-error{% endif %}">{{ scan_controls.ubiquiti.reason }}</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section-grid section-grid--wide">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Navigation</div>
+        <div class="surface__title">Operational surfaces</div>
+        <div class="surface__meta">Fast access to the pages operators touch most during scans, inspections, and controlled changes.</div>
+      </div>
+    </div>
+    <div class="feature-card-grid">
+      {{ ui.feature_card('Sector and switch monitoring', 'Continuous reachability view with retry-aware status for configured sectors and tracked switches.', 'success', 'Monitoring') }}
+      {{ ui.feature_card('Cambium inventory', 'Subscriber rows, refresh state, and searchable imported device context.', 'info', 'Inventory') }}
+      {{ ui.feature_card('Ubiquiti inventory', 'Parallel subscriber surface with the same filtering and freshness signals.', 'info', 'Inventory') }}
+      {{ ui.feature_card('Ultra switch inspection', 'Read-only visibility into described ports and switch state for Ultra inventory.', 'neutral', 'Switches') }}
+      {{ ui.feature_card('HT switch inspection', 'Equivalent inspection flow for HT switches grouped by site.', 'neutral', 'Switches') }}
+      {% if current_user.role in ['operator', 'admin'] %}
+      {{ ui.feature_card('Port change workflow', 'Two-step review and confirm path for descriptions and optional undo shutdown.', 'warning', 'Change control') }}
+      {{ ui.feature_card('Scan schedule', 'Choose exact daily run times for Cambium and Ubiquiti scans.', 'warning', 'Automation') }}
+      {% endif %}
+      {% if current_user.role == 'admin' %}
+      {{ ui.feature_card('User administration', 'Create viewer, operator, and admin accounts from the GUI.', 'danger', 'Administration') }}
+      {% endif %}
+      {{ ui.feature_card('Audit and settings', 'Operator traceability plus runtime visibility for deployment and safety posture.', 'neutral', 'Platform') }}
+    </div>
+    <div class="list-links" style="margin-top: 16px;">
+      <a href="{{ url_for('monitoring.index') }}">Open sector and switch monitoring</a>
+      <a href="{{ url_for('inventory.view_inventory', vendor='cambium') }}">Open Cambium inventory</a>
+      <a href="{{ url_for('inventory.view_inventory', vendor='ubiquiti') }}">Open Ubiquiti inventory</a>
+      <a href="{{ url_for('switches.inspect', inventory_type='ultra') }}">Open Ultra switch inspection</a>
+      <a href="{{ url_for('switches.inspect', inventory_type='ht') }}">Open HT switch inspection</a>
+      {% if current_user.role in ['operator', 'admin'] %}
+      <a href="{{ url_for('switches.change') }}">Open port description and enable workflow</a>
+      <a href="{{ url_for('jobs.schedule') }}">Open scan schedule</a>
+      {% endif %}
+      <a href="{{ url_for('audit.index') }}">Open audit log</a>
+      <a href="{{ url_for('settings.index') }}">Open settings and configuration</a>
+      {% if current_user.role == 'admin' %}
+      <a href="{{ url_for('admin.switches') }}">Open switch inventory administration</a>
+      <a href="{{ url_for('admin.users') }}">Open user administration</a>
+      {% endif %}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Operator Notes</div>
+      <div class="surface__title">What this page optimizes for</div>
+      <div class="surface__meta">Fast orientation before troubleshooting on inventory data or touching a switch.</div>
+    </div>
+    <div class="context-list">
+      <div class="context-list__item">
+        <strong>Freshness first</strong>
+        <span>Scan readiness and stale-state pressure stay visible before you trust inventory rows during triage.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Safe escalation</strong>
+        <span>Write workflows remain permission-gated and route through preview and confirm checkpoints.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Traceability nearby</strong>
+        <span>Recent jobs and audit activity stay adjacent so you can correlate inventory shifts with operator actions.</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<section class="section-grid">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Queue Activity</div>
+        <div class="surface__title">Recent Jobs</div>
+        <div class="surface__meta">Latest manual and scheduled scan activity.</div>
+      </div>
+      <a class="text-link" href="{{ url_for('jobs.list_jobs') }}">View all</a>
+    </div>
+    <div class="record-grid record-grid--compact">
+      {% for job in recent_jobs %}
+      {% set status_tone = 'warning' if job.status in ['queued', 'running'] else ('success' if job.status == 'success' else 'danger') %}
+      <article class="record-card">
+        <div class="record-card__header">
+          <div>
+            <div class="record-card__title">#{{ job.id }}</div>
+            <div class="record-card__meta">{{ job.message or 'Awaiting completion detail.' }}</div>
+          </div>
+          <div class="record-card__badge-row">
+            {{ ui.badge(job.status, status_tone) }}
+          </div>
+        </div>
+        <div class="record-card__facts">
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Vendor</div>
+            <div class="record-card__fact-value">{{ job.vendor or '-' }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Trigger</div>
+            <div class="record-card__fact-value">{{ job.trigger_source }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Created</div>
+            <div class="record-card__fact-value">{{ humanize_timestamp(job.created_at) }}</div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {{ ui.pagination(jobs_pager, 'jobs_page') }}
+  </article>
+
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Authenticated Activity</div>
+        <div class="surface__title">Audit Trail</div>
+        <div class="surface__meta">Recent authenticated actions across the console.</div>
+      </div>
+      <a class="text-link" href="{{ url_for('audit.index') }}">Open audit log</a>
+    </div>
+    <div class="record-grid record-grid--compact">
+      {% for event in recent_audit_events %}
+      {% set outcome_tone = 'success' if event.outcome in ['success', 'queued'] else ('warning' if event.outcome in ['blocked', 'validation_error', 'discarded', 'info'] else 'danger') %}
+      <article class="record-card">
+        <div class="record-card__header">
+          <div>
+            <div class="record-card__title">{{ event.action }}</div>
+            <div class="record-card__meta">{{ event.summary }}</div>
+          </div>
+          <div class="record-card__badge-row">
+            {{ ui.badge(event.outcome, outcome_tone) }}
+          </div>
+        </div>
+        <div class="record-card__facts">
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Actor</div>
+            <div class="record-card__fact-value">{{ event.actor_username }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Resource</div>
+            <div class="record-card__fact-value">{{ event.resource_type }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Time</div>
+            <div class="record-card__fact-value">{{ humanize_timestamp(event.created_at) }}</div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {{ ui.pagination(audit_pager, 'audit_page') }}
+  </article>
+</section>
+{% endblock %}

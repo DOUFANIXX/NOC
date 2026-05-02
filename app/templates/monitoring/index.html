@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}Monitoring | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Reachability{% endblock %}
+{% block page_title %}Sector and Switch Monitoring{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Background reachability checks for configured sector targets and seeded switch inventory.</p>{% endblock %}
+{% block page_actions %}
+  <a class="button button-secondary" href="{{ url_for('monitoring.index') }}">Refresh View</a>
+{% endblock %}
+
+{% block content %}
+{% set settings = snapshot.settings %}
+{% set summary = snapshot.summary %}
+{% set checked_at = snapshot.checked_at %}
+
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Live Reachability</div>
+        <div class="surface__title">Sectors and switches under one monitoring tab.</div>
+        <p class="hero-panel__lead">The backend probes every target with {{ settings.ping_count }} pings on each cycle. If a target fully times out, it waits {{ settings.retry_delay_seconds }} seconds and retries the same {{ settings.ping_count }} pings before marking it offline.</p>
+      </div>
+      {{ ui.badge("Auto refresh", "info", settings.refresh_seconds ~ "s cadence") }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Targets", summary.total, "All sectors and tracked switches currently in scope.", "info") }}
+      {{ ui.mini_stat("Online", summary.online, "Clean probe responses on the latest cycle.", "success") }}
+      {{ ui.mini_stat("Degraded", summary.degraded, "Packet loss or recovered only after retry.", "warning") }}
+      {{ ui.mini_stat("Offline", summary.offline, "No replies after primary and retry probes.", "danger") }}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Cycle State</div>
+      <div class="surface__title">Probe profile</div>
+      <div class="surface__meta">This page reloads automatically while the backend monitor keeps cached results warm in the background.</div>
+    </div>
+    <div class="signal-stack">
+      {{ ui.signal_chip('Sector targets', summary.sectors, 'info') }}
+      {{ ui.signal_chip('Switch targets', summary.switches, 'info') }}
+      {{ ui.signal_chip('Last update', humanize_timestamp(checked_at), 'success' if checked_at else 'warning') }}
+      <div class="signal-chip signal-chip-neutral">
+        <span>Next page refresh</span>
+        <strong data-monitor-countdown>{{ settings.refresh_seconds }}s</strong>
+      </div>
+    </div>
+  </aside>
+</section>
+
+{% if not checked_at %}
+{{ ui.banner("Monitoring warm-up", "The background monitor has not completed its first cycle yet. This page will reload automatically as soon as results are available.", "warning") }}
+{% endif %}
+
+<section class="section-grid priority-grid">
+  <article class="surface surface-warning">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Attention First</div>
+        <div class="surface__title">Offline sectors</div>
+        <div class="surface__meta">Configured sector endpoints that did not respond after the primary probe and retry window.</div>
+      </div>
+      {{ ui.badge(snapshot.priority.offline_sectors|length ~ " offline", "danger") }}
+    </div>
+    {% if snapshot.priority.offline_sectors %}
+    <div class="priority-list">
+      {% for item in snapshot.priority.offline_sectors %}
+      <article class="priority-item priority-item-danger">
+        <div class="priority-item__header">
+          <div>
+            <div class="record-card__title">{{ item.name }}</div>
+            <div class="record-card__meta">{{ item.ip }}{% if item.detail %} | {{ item.detail }}{% endif %}</div>
+          </div>
+          {{ ui.badge(item.group, 'info') }}
+        </div>
+        <div class="priority-item__facts">
+          <span>{{ item.packets_received }}/{{ item.packets_sent }} replies</span>
+          <span>Last success: {{ humanize_timestamp(item.last_success_at) }}</span>
+          {% if item.retry_performed %}<span>Retry attempted</span>{% endif %}
+        </div>
+        <div class="record-card__meta">{{ item.probe_message }}</div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ ui.empty_state("No offline sectors", "All configured sector targets are currently replying or only showing degraded loss.") }}
+    {% endif %}
+  </article>
+
+  <article class="surface surface-warning">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Attention First</div>
+        <div class="surface__title">Offline switches</div>
+        <div class="surface__meta">Seeded switches that are fully unreachable on the latest monitoring cycle.</div>
+      </div>
+      {{ ui.badge(snapshot.priority.offline_switches|length ~ " offline", "danger") }}
+    </div>
+    {% if snapshot.priority.offline_switches %}
+    <div class="priority-list">
+      {% for item in snapshot.priority.offline_switches %}
+      <article class="priority-item priority-item-danger">
+        <div class="priority-item__header">
+          <div>
+            <div class="record-card__title">{{ item.name }}</div>
+            <div class="record-card__meta">{{ item.ip }}{% if item.detail %} | {{ item.detail }}{% endif %}</div>
+          </div>
+          {{ ui.badge(item.group, 'neutral') }}
+        </div>
+        <div class="priority-item__facts">
+          <span>{{ item.packets_received }}/{{ item.packets_sent }} replies</span>
+          <span>Last success: {{ humanize_timestamp(item.last_success_at) }}</span>
+          {% if item.retry_performed %}<span>Retry attempted</span>{% endif %}
+        </div>
+        <div class="record-card__meta">{{ item.probe_message }}</div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ ui.empty_state("No offline switches", "All monitored switches are currently reachable or only showing degraded loss.") }}
+    {% endif %}
+  </article>
+</section>
+
+<section class="section-grid">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Sector Targets</div>
+        <div class="surface__title">Configured scan endpoints</div>
+        <div class="surface__meta">These are the IPs used by inventory scans, enriched with known sector names when the inventory database has them.</div>
+      </div>
+    </div>
+    {% if snapshot.groups.sectors %}
+    <div class="record-grid record-grid--wide">
+      {% for item in snapshot.groups.sectors %}
+      {% set status_tone = 'success' if item.status == 'online' else ('warning' if item.status == 'degraded' else ('danger' if item.status == 'offline' else 'neutral')) %}
+      <article class="record-card">
+        <div class="monitor-card__header">
+          <div class="monitor-card__identity">
+            <div class="record-card__title">{{ item.name }}</div>
+            <div class="record-card__meta">{{ item.ip }}{% if item.detail %} | {{ item.detail }}{% endif %}</div>
+          </div>
+          <div class="monitor-card__badge-row">
+            {{ ui.badge(item.group, 'info') }}
+            {{ ui.badge(item.status_label, status_tone) }}
+          </div>
+        </div>
+        <div class="record-card__facts">
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Probe</div>
+            <div class="record-card__fact-value">{{ item.packets_received }}/{{ item.packets_sent }} replies</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Loss</div>
+            <div class="record-card__fact-value">{{ "%.0f"|format(item.packet_loss_percent or 0) }}%{% if item.retry_performed %} | retry used{% endif %}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Latency</div>
+            <div class="record-card__fact-value">{{ "%.1f ms"|format(item.avg_latency_ms) if item.avg_latency_ms is not none else "-" }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Last Success</div>
+            <div class="record-card__fact-value">{{ humanize_timestamp(item.last_success_at) }}</div>
+          </div>
+        </div>
+        <div class="record-card__footer">
+          <div class="record-card__meta">{{ item.probe_message }}</div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {{ ui.pagination(sectors_pager, 'sectors_page') }}
+    {% else %}
+    {{ ui.empty_state("No sector targets found", "Add Cambium or Ubiquiti target IPs in the scan target config to populate this view. You can also attach names there for sectors that do not publish a usable label during scans.") }}
+    {% endif %}
+  </article>
+
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Switch Targets</div>
+        <div class="surface__title">Seeded switch inventory</div>
+        <div class="surface__meta">All tracked Ultra and HT switches are monitored from the same background cycle.</div>
+      </div>
+    </div>
+    {% if snapshot.groups.switches %}
+    <div class="record-grid record-grid--wide">
+      {% for item in snapshot.groups.switches %}
+      {% set status_tone = 'success' if item.status == 'online' else ('warning' if item.status == 'degraded' else ('danger' if item.status == 'offline' else 'neutral')) %}
+      <article class="record-card">
+        <div class="monitor-card__header">
+          <div class="monitor-card__identity">
+            <div class="record-card__title">{{ item.name }}</div>
+            <div class="record-card__meta">{{ item.ip }}{% if item.detail %} | {{ item.detail }}{% endif %}</div>
+          </div>
+          <div class="monitor-card__badge-row">
+            {{ ui.badge(item.group, 'neutral') }}
+            {{ ui.badge(item.status_label, status_tone) }}
+          </div>
+        </div>
+        <div class="record-card__facts">
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Probe</div>
+            <div class="record-card__fact-value">{{ item.packets_received }}/{{ item.packets_sent }} replies</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Loss</div>
+            <div class="record-card__fact-value">{{ "%.0f"|format(item.packet_loss_percent or 0) }}%{% if item.retry_performed %} | retry used{% endif %}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Latency</div>
+            <div class="record-card__fact-value">{{ "%.1f ms"|format(item.avg_latency_ms) if item.avg_latency_ms is not none else "-" }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Last Success</div>
+            <div class="record-card__fact-value">{{ humanize_timestamp(item.last_success_at) }}</div>
+          </div>
+        </div>
+        <div class="record-card__footer">
+          <div class="record-card__meta">{{ item.probe_message }}</div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {{ ui.pagination(switches_pager, 'switches_page') }}
+    {% else %}
+    {{ ui.empty_state("No switch targets found", "Seeded switch inventory records appear here automatically after the app loads them.") }}
+    {% endif %}
+  </article>
+</section>
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+  (() => {
+    const refreshSeconds = {{ snapshot.settings.refresh_seconds | int }};
+    const countdown = document.querySelector("[data-monitor-countdown]");
+    if (!countdown || !Number.isFinite(refreshSeconds) || refreshSeconds <= 0) {
+      return;
+    }
+
+    let remaining = refreshSeconds;
+    const tick = () => {
+      countdown.textContent = `${remaining}s`;
+      if (remaining <= 0) {
+        window.location.reload();
+        return;
+      }
+      remaining -= 1;
+      window.setTimeout(tick, 1000);
+    };
+
+    tick();
+  })();
+</script>
+{% endblock %}

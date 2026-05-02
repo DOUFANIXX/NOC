@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}{{ inventory_type|title }} Switch Inspection | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Switches{% endblock %}
+{% block page_title %}{{ inventory_type|title }} Switch Port Inspection{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Read-only Huawei interface inspection across the selected switch inventory.</p>{% endblock %}
+
+{% block content %}
+<section class="surface">
+  <div class="workflow-stepper">
+    <div class="workflow-step is-active">
+      <div class="workflow-step__index">01</div>
+      <div class="workflow-step__title">Choose target</div>
+      <div class="workflow-step__meta">Select one switch from the active {{ inventory_type|upper }} inventory.</div>
+    </div>
+    <div class="workflow-step is-active">
+      <div class="workflow-step__index">02</div>
+      <div class="workflow-step__title">Inspect described ports</div>
+      <div class="workflow-step__meta">Run a read-only command set against the selected Huawei switch.</div>
+    </div>
+    <div class="workflow-step">
+      <div class="workflow-step__index">03</div>
+      <div class="workflow-step__title">Review output</div>
+      <div class="workflow-step__meta">Use the result set for diagnostics or to prepare a safe follow-up workflow.</div>
+    </div>
+  </div>
+</section>
+
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Read-Only Workflow</div>
+        <div class="surface__title">{{ inventory_type|upper }} inspection target</div>
+        <p class="hero-panel__lead">This workflow is intentionally read only. It is meant for verifying described ports, link state, and switch context before any change request is staged elsewhere.</p>
+      </div>
+      {{ ui.badge(inventory_type|upper, 'info', 'inspection mode') }}
+    </div>
+
+    <form method="get" class="stack" id="inspectForm">
+      <label class="field">
+        <span>Switch</span>
+        <select name="switch_id" required class="{% if form_errors.switch_id %}input-invalid{% endif %}">
+          <option value="">Select a switch</option>
+          {% if inventory_type == 'ultra' %}
+            {% for city, areas in grouped.items() %}
+              {% for area, switches in areas.items() %}
+                <optgroup label="{{ city }} / {{ area }}">
+                  {% for switch in switches %}
+                  <option value="{{ switch.id }}" {% if selected_record and selected_record.id == switch.id %}selected{% endif %}>
+                    {{ switch.name }} ({{ switch.ip }})
+                  </option>
+                  {% endfor %}
+                </optgroup>
+              {% endfor %}
+            {% endfor %}
+          {% else %}
+            {% for site, switches in grouped.items() %}
+              <optgroup label="{{ site }}">
+                {% for switch in switches %}
+                <option value="{{ switch.id }}" {% if selected_record and selected_record.id == switch.id %}selected{% endif %}>
+                  {{ switch.name }} ({{ switch.ip }})
+                </option>
+                {% endfor %}
+              </optgroup>
+            {% endfor %}
+          {% endif %}
+        </select>
+        {% if form_errors.switch_id %}<span class="helper-text helper-text-error">{{ form_errors.switch_id }}</span>{% endif %}
+      </label>
+      <button class="button button-primary" type="submit">Inspect Ports</button>
+    </form>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Inspection Notes</div>
+      <div class="surface__title">Operational context</div>
+      <div class="surface__meta">Use this screen for fact-finding. It does not modify switch state and is safe for viewer role sessions.</div>
+    </div>
+    {% if selected_record %}
+    <div class="signal-stack">
+      {{ ui.signal_chip('Switch', selected_record.name, 'info') }}
+      {{ ui.signal_chip('Management IP', selected_record.ip, 'neutral') }}
+      {{ ui.signal_chip('Inventory', selected_record.inventory_type|upper, 'success') }}
+      {{ ui.signal_chip('Described ports', results|length ~ ' rows', 'info') }}
+    </div>
+    <dl class="definition-list">
+      <div><dt>Context</dt><dd>{{ selected_record.city or selected_record.site or '-' }}{% if selected_record.area %} / {{ selected_record.area }}{% endif %}</dd></div>
+      <div><dt>Safe Mode</dt><dd>Read-only commands only</dd></div>
+    </dl>
+    {% else %}
+    {{ ui.empty_state("No switch selected", "Choose a switch to populate management context and inspection results.") }}
+    {% endif %}
+  </aside>
+</section>
+
+{% if selected_record %}
+<section class="surface">
+  <div class="surface__header">
+    <div>
+      <div class="surface__eyebrow">Inspection Result</div>
+      <div class="surface__title">{{ selected_record.name }}</div>
+      <div class="surface__meta">Target IP {{ selected_record.ip }}{% if selected_record.city or selected_record.site %} | {{ selected_record.city or selected_record.site }}{% if selected_record.area %} / {{ selected_record.area }}{% endif %}{% endif %}</div>
+    </div>
+    {{ ui.badge(inventory_type|upper, 'success', results|length ~ ' described ports') }}
+  </div>
+
+  {% if results %}
+  <div class="record-grid record-grid--compact">
+    {% for row in results %}
+    {% set status = (row.status or '')|lower %}
+    {% set display_speed = 'N/A' if 'down' in status else (row.speed or '-') %}
+    <article class="record-card">
+      <div class="record-card__header">
+        <div>
+          <div class="record-card__title">{{ row.port }}</div>
+          <div class="record-card__meta">Described interface returned by the current inspection command set.</div>
+        </div>
+        <div class="record-card__badge-row">
+          {{ ui.badge(row.status or '-', 'success' if 'up' in status else ('warning' if 'down' in status else 'neutral')) }}
+        </div>
+      </div>
+      <div class="record-card__facts">
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Speed</div>
+          <div class="record-card__fact-value">{{ display_speed }}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Description</div>
+          <div class="record-card__fact-value">{{ row.description or '-' }}</div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {{ ui.pagination(pager) }}
+  {% else %}
+  {{ ui.empty_state("No described ports found", "The switch responded, but no described ports matched the current inspection rules.") }}
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}Jobs | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Operations{% endblock %}
+{% block page_title %}Background Jobs{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Queued, running, and completed background scan executions.</p>{% endblock %}
+{% block page_actions %}
+{% if current_user.role in ['operator', 'admin'] %}
+<a class="button button-secondary" href="{{ url_for('jobs.schedule') }}">Open Scan Schedule</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Execution Queue</div>
+        <div class="surface__title">Scan runs, outcomes, and vendor freshness</div>
+        <p class="hero-panel__lead">This surface turns the lightweight in-process executor into something operators can actually trust: clear queue state, last-success visibility, and enough failure detail to know whether to retry, inspect config, or check infrastructure.</p>
+      </div>
+      {{ ui.badge('Jobs', 'info', summary.total ~ ' recent runs') }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Recent Jobs", summary.total, "Latest background executions loaded into this view.", "info") }}
+      {{ ui.mini_stat("Queued", summary.queued, "Jobs waiting for a worker slot.", "warning" if summary.queued else "neutral") }}
+      {{ ui.mini_stat("Running", summary.running, "Jobs actively executing right now.", "info" if summary.running else "neutral") }}
+      {{ ui.mini_stat("Failed", summary.failed, "Runs that ended before import completed.", "danger" if summary.failed else "success") }}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Vendor Freshness</div>
+      <div class="surface__title">Last successful scans</div>
+      <div class="surface__meta">Stale vendors deserve attention before operators trust inventory data for troubleshooting or change preparation.</div>
+    </div>
+    <div class="signal-stack">
+      {% for vendor in summary.vendors %}
+      {{ ui.signal_chip(vendor.vendor|title, humanize_timestamp(vendor.last_success), 'danger' if vendor.is_stale else 'success') }}
+      {% endfor %}
+    </div>
+  </aside>
+</section>
+
+<section class="surface">
+  <div class="surface__header">
+    <div>
+      <div class="surface__eyebrow">Recent Jobs</div>
+      <div class="surface__title">Run history</div>
+      <div class="surface__meta">Queued, running, and completed scan executions with import counts and failure hints.</div>
+    </div>
+  </div>
+  <div class="record-grid record-grid--wide">
+    {% for job in jobs %}
+    {% set status_tone = 'warning' if job.status in ['queued', 'running'] else ('success' if job.status == 'success' else 'danger') %}
+    <article class="record-card">
+      <div class="record-card__header">
+        <div>
+          <div class="record-card__title">#{{ job.id }}</div>
+          <div class="record-card__meta">{{ job.job_type }} via {{ job.trigger_source }}</div>
+        </div>
+        <div class="record-card__badge-row">
+          {{ ui.badge(job.status, status_tone) }}
+          {{ ui.badge(job.vendor or '-', 'info') }}
+        </div>
+      </div>
+      <div class="record-card__facts">
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Queued</div>
+          <div class="record-card__fact-value">{{ humanize_timestamp(job.created_at) }}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Run Window</div>
+          <div class="record-card__fact-value">Started {{ humanize_timestamp(job.started_at) }}{% if job.finished_at %}<br><span class="table-cell-meta">Finished {{ humanize_timestamp(job.finished_at) }}</span>{% endif %}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Coverage</div>
+          <div class="record-card__fact-value">{% if job.successful_targets is not none %}{{ job.successful_targets }} successful target{{ '' if job.successful_targets == 1 else 's' }}{% else %}Target detail unavailable{% endif %}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Processing</div>
+          <div class="record-card__fact-value">{{ job.processed if job.processed is not none else '-' }} row{{ '' if job.processed == 1 else 's' if job.processed is not none else '' }}{% if job.failed_targets %}<br><span class="table-cell-meta">{{ job.failed_targets }} failed target{{ '' if job.failed_targets == 1 else 's' }}</span>{% endif %}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Duration</div>
+          <div class="record-card__fact-value">{% if job.duration_seconds is not none %}{{ job.duration_seconds }} sec{% else %}{{ 'In progress' if job.status == 'running' else 'Awaiting worker' }}{% endif %}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Outcome</div>
+          <div class="record-card__fact-value">{{ job.message or '-' }}</div>
+        </div>
+      </div>
+      {% if job.failure_samples %}
+      <ul class="record-card__list">
+        <li>
+          <strong>Example failure</strong>
+          {{ job.failure_samples[0].target }} - {{ job.failure_samples[0].error }}
+        </li>
+      </ul>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+  {{ ui.pagination(pager) }}
+</section>
+{% endblock %}

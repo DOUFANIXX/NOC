@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}Switch Inventory Admin | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Administration{% endblock %}
+{% block page_title %}Switch Inventory Administration{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Maintain the switch records used by inspection and controlled change workflows.</p>{% endblock %}
+
+{% block content %}
+{% if page_feedback %}
+{{ ui.banner(page_feedback.title, page_feedback.message, page_feedback.tone) }}
+{% endif %}
+
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Admin Control</div>
+        <div class="surface__title">Switch inventory source of truth</div>
+        <p class="hero-panel__lead">These records drive inspection and controlled change workflows. Keep them precise, current, and deliberately curated so operators are never pointed at the wrong switch.</p>
+      </div>
+      {{ ui.badge("Admin Only", "danger") }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Tracked Switches", inventory_summary.total, "Inventory records available to app workflows.", "info") }}
+      {{ ui.mini_stat("Ultra Records", inventory_summary.ultra, "Grouped by city and area for Ultra inventory.", "success") }}
+      {{ ui.mini_stat("HT Records", inventory_summary.ht, "Grouped by site for HT inventory.", "success") }}
+      {{ ui.mini_stat("Write Scope", "High", "Inventory edits affect downstream inspection and change routing.", "warning") }}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Admin Safety</div>
+      <div class="surface__title">Before editing inventory</div>
+      <div class="surface__meta">Treat these entries as operator-facing routing data. Incorrect names, IPs, or location tags can misdirect real network work.</div>
+    </div>
+    <div class="context-list">
+      <div class="context-list__item">
+        <strong>Ultra requires city and area</strong>
+        <span>Those fields shape how operators discover switches during inspection and change flows.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>HT requires site</strong>
+        <span>HT inventory grouping is site-based, so missing site values damage route clarity.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Deletes are audited</strong>
+        <span>All add and delete actions remain logged for traceability in the audit view.</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<section class="section-grid">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Create Record</div>
+        <div class="surface__title">Add switch record</div>
+        <div class="surface__meta">Tracked inventory used by inspection and change workflows.</div>
+      </div>
+      {{ ui.badge("Admin Only", "danger") }}
+    </div>
+    <form method="post" class="stack">
+      {{ csrf_input() }}
+      <input type="hidden" name="action" value="add">
+      <label class="field">
+        <span>Inventory Type</span>
+        <select name="inventory_type" required class="{% if form_errors.inventory_type %}input-invalid{% endif %}">
+          <option value="ultra" {% if form_data.inventory_type == 'ultra' %}selected{% endif %}>Ultra</option>
+          <option value="ht" {% if form_data.inventory_type == 'ht' %}selected{% endif %}>HT</option>
+        </select>
+        {% if form_errors.inventory_type %}<span class="helper-text helper-text-error">{{ form_errors.inventory_type }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>City</span>
+        <input type="text" name="city" placeholder="Tripoli" value="{{ form_data.city }}" class="{% if form_errors.city %}input-invalid{% endif %}">
+        {% if form_errors.city %}<span class="helper-text helper-text-error">{{ form_errors.city }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Area</span>
+        <input type="text" name="area" placeholder="Almarri" value="{{ form_data.area }}" class="{% if form_errors.area %}input-invalid{% endif %}">
+        {% if form_errors.area %}<span class="helper-text helper-text-error">{{ form_errors.area }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Site</span>
+        <input type="text" name="site" placeholder="HT MALL" value="{{ form_data.site }}" class="{% if form_errors.site %}input-invalid{% endif %}">
+        {% if form_errors.site %}<span class="helper-text helper-text-error">{{ form_errors.site }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Switch Name</span>
+        <input type="text" name="name" required value="{{ form_data.name }}" class="{% if form_errors.name %}input-invalid{% endif %}">
+        {% if form_errors.name %}<span class="helper-text helper-text-error">{{ form_errors.name }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>IP Address</span>
+        <input type="text" name="ip" required value="{{ form_data.ip }}" class="{% if form_errors.ip %}input-invalid{% endif %}">
+        {% if form_errors.ip %}<span class="helper-text helper-text-error">{{ form_errors.ip }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Notes</span>
+        <input type="text" name="notes" value="{{ form_data.notes }}" class="{% if form_errors.notes %}input-invalid{% endif %}">
+        {% if form_errors.notes %}<span class="helper-text helper-text-error">{{ form_errors.notes }}</span>{% endif %}
+      </label>
+      <button class="button button-primary" type="submit">Add Switch</button>
+    </form>
+  </article>
+
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Current Records</div>
+        <div class="surface__title">Tracked switch inventory</div>
+        <div class="surface__meta">{{ inventory_summary.total }} tracked switch entries available to app workflows.</div>
+      </div>
+    </div>
+    <div class="record-grid">
+      {% for record in records %}
+      <article class="record-card">
+        <div class="record-card__header">
+          <div>
+            <div class="record-card__title">{{ record.name }}</div>
+            <div class="record-card__meta">{{ record.ip }}</div>
+          </div>
+          <div class="record-card__badge-row">
+            {{ ui.badge(record.inventory_type|upper, 'info' if record.inventory_type == 'ultra' else 'success') }}
+          </div>
+        </div>
+        <div class="record-card__facts">
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Location</div>
+            <div class="record-card__fact-value">{{ record.city or record.site or '-' }}{% if record.area %} / {{ record.area }}{% endif %}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Grouping</div>
+            <div class="record-card__fact-value">{{ 'City/Area grouping' if record.inventory_type == 'ultra' else 'Site grouping' }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Notes</div>
+            <div class="record-card__fact-value">{{ record.notes or '-' }}</div>
+          </div>
+        </div>
+        <div class="record-card__actions">
+          <form method="post">
+            {{ csrf_input() }}
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="switch_id" value="{{ record.id }}">
+            <button class="button button-danger button-small" type="submit">Delete</button>
+          </form>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {{ ui.pagination(pager) }}
+  </article>
+</section>
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}{{ vendor.title() }} Inventory | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Inventory{% endblock %}
+{% block page_title %}{{ vendor.title() }} Subscriber Inventory{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Subscriber inventory and diagnostic context for {{ vendor.title() }} devices.</p>{% endblock %}
+{% block page_actions %}
+  {% if current_user.role in ['operator', 'admin'] %}
+  <form method="post" action="{{ url_for('inventory.run_manual_scan', vendor=vendor) }}">
+    {{ csrf_input() }}
+    {% if scan_state.running %}
+    <input type="hidden" name="action" value="restart">
+    <button class="button button-danger" type="submit" {% if not scan_state.restartable %}disabled{% endif %}>Restart {{ vendor.title() }} Scan</button>
+    {% else %}
+    <button class="button button-primary" type="submit" {% if not scan_state.ready %}disabled{% endif %}>Trigger {{ vendor.title() }} Scan</button>
+    {% endif %}
+  </form>
+  {% else %}
+  <span class="helper-text helper-text-warning">Manual scan controls are visible to operators and admins only.</span>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Inventory Snapshot</div>
+        <div class="surface__title">{{ vendor.title() }} subscriber visibility</div>
+        <p class="hero-panel__lead">Filter subscriber records, check freshness, and pivot quickly between radio sectors, device models, and management addresses without leaving the main operational surface.</p>
+      </div>
+      {{ ui.badge(vendor, 'info', total ~ ' rows') }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Tracked Devices", total, "Vendor inventory rows currently stored.", "info") }}
+      {{ ui.mini_stat("Last Successful Scan", humanize_timestamp(latest_run.finished_at if latest_run else None), ("Latest completed " ~ vendor ~ " import." ~ (" Target failures: " ~ latest_run.meta.failed_targets if latest_run and latest_run.meta.failed_targets else "")), "success" if latest_run else "warning") }}
+      {{ ui.mini_stat("Distinct Sectors", sectors|length, "Sector values visible in the current dataset.", "neutral") }}
+      {{ ui.mini_stat("Device Types", device_types|length, "Unique device models present in the current view.", "neutral") }}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Refresh Control</div>
+      <div class="surface__title">{{ vendor.title() }} scan posture</div>
+      <div class="surface__meta">Manual scans remain permission-gated and backgrounded to protect the main operator session.</div>
+    </div>
+    <div class="signal-stack">
+      {{ ui.signal_chip('Scan readiness', scan_state.reason, 'success' if scan_state.ready else 'warning') }}
+      {{ ui.signal_chip('Access level', 'Operator+' if current_user.role in ['operator', 'admin'] else 'Viewer only', 'warning' if current_user.role in ['operator', 'admin'] else 'neutral') }}
+      {{ ui.signal_chip('Result set', devices|length ~ ' rows', 'info') }}
+    </div>
+    {% if current_user.role in ['operator', 'admin'] %}
+    <form method="post" action="{{ url_for('inventory.run_manual_scan', vendor=vendor) }}">
+      {{ csrf_input() }}
+      {% if scan_state.running %}
+      <input type="hidden" name="action" value="restart">
+      <button class="button button-danger button-block" type="submit" {% if not scan_state.restartable %}disabled{% endif %}>Restart {{ vendor.title() }} Scan</button>
+      {% else %}
+      <button class="button button-primary button-block" type="submit" {% if not scan_state.ready %}disabled{% endif %}>Trigger {{ vendor.title() }} Scan</button>
+      {% endif %}
+    </form>
+    {% endif %}
+    <span class="helper-text {% if not scan_state.ready %}helper-text-error{% endif %}">{{ scan_state.reason }}</span>
+  </aside>
+</section>
+
+{% if not latest_run %}
+{{ ui.banner("No scan history", "This inventory does not have a successful scan yet. Run a manual scan after credentials and targets are configured.", "warning") }}
+{% endif %}
+{% if current_user.role in ['operator', 'admin'] and not scan_state.ready %}
+{{ ui.banner("Manual scan unavailable", scan_state.reason, "warning") }}
+{% endif %}
+{% if latest_run and latest_run.meta.failed_targets %}
+{{ ui.banner("Last successful scan had target failures", latest_run.meta.failed_targets ~ " target failures were recorded in the last successful " ~ vendor ~ " run. Check the jobs page for sampled failure detail.", "warning") }}
+{% endif %}
+
+<section class="surface">
+  <div class="surface__header">
+    <div>
+      <div class="surface__eyebrow">Search and Filter</div>
+      <div class="surface__title">Subscriber inventory</div>
+      <div class="surface__meta">Search by MAC, username, IP, or sector, then narrow further by sector or device type.</div>
+    </div>
+  </div>
+
+  <form method="get" class="toolbar-card">
+    <div class="toolbar toolbar--filters" style="flex: 1 1 680px;">
+      <input type="search" name="q" value="{{ query }}" placeholder="Search MAC, username, IP, or sector">
+      <select name="sector">
+        <option value="">All sectors</option>
+        {% for item in sectors %}
+        <option value="{{ item }}" {% if item == selected_sector %}selected{% endif %}>{{ item }}</option>
+        {% endfor %}
+      </select>
+      <select name="device_type">
+        <option value="">All device types</option>
+        {% for item in device_types %}
+        <option value="{{ item }}" {% if item == selected_device_type %}selected{% endif %}>{{ item }}</option>
+        {% endfor %}
+      </select>
+      <button class="button button-secondary" type="submit">Apply Filters</button>
+    </div>
+    <div class="toolbar-card__meta">
+      <div class="metric-pill">
+        <span class="metric-pill__label">Visible Rows</span>
+        <span class="metric-pill__value">{{ devices|length }}</span>
+      </div>
+      <div class="metric-pill">
+        <span class="metric-pill__label">Sector Filter</span>
+        <span class="metric-pill__value">{{ selected_sector or 'All sectors' }}</span>
+      </div>
+      <div class="metric-pill">
+        <span class="metric-pill__label">Device Filter</span>
+        <span class="metric-pill__value">{{ selected_device_type or 'All models' }}</span>
+      </div>
+    </div>
+  </form>
+
+  {% if devices %}
+  <div class="record-grid record-grid--wide">
+    {% for device in devices %}
+    {% set signal_tone = 'success' if device.rssi and device.rssi|int > -65 else ('warning' if device.rssi else 'neutral') %}
+    <article class="record-card">
+      <div class="record-card__header">
+        <div>
+          <div class="record-card__title">{{ device.username or device.mac }}</div>
+          <div class="record-card__meta">MAC {{ device.mac }}</div>
+        </div>
+        <div class="record-card__badge-row">
+          {{ ui.badge(device.rssi or 'N/A', signal_tone, 'signal') }}
+          {% if device.device_type %}
+          {{ ui.badge(device.device_type, 'info') }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="record-card__facts">
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Management</div>
+          <div class="record-card__fact-value">
+            {% if device.ip %}
+            <a class="text-link" href="http://{{ device.ip }}" target="_blank">{{ device.ip }}</a>
+            {% else %}
+            -
+            {% endif %}
+          </div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Source</div>
+          <div class="record-card__fact-value">
+            {% if device.source_ip %}
+            <a class="text-link" href="http://{{ device.source_ip }}" target="_blank">{{ device.source_ip }}</a>
+            {% else %}
+            No source endpoint captured
+            {% endif %}
+          </div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Platform</div>
+          <div class="record-card__fact-value">{{ device.device_type or '-' }}{% if device.firmware %}<br><span class="table-cell-meta">{{ device.firmware }}</span>{% endif %}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Sector</div>
+          <div class="record-card__fact-value">{{ device.sector_name or '-' }}{% if device.sector_ip %}<br><span class="table-cell-meta">{{ device.sector_ip }}</span>{% endif %}</div>
+        </div>
+        <div class="record-card__fact">
+          <div class="record-card__fact-label">Last Seen</div>
+          <div class="record-card__fact-value">{{ humanize_timestamp(device.last_seen_at) }}</div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {{ ui.pagination(pager) }}
+  {% else %}
+  {{ ui.empty_state("No inventory records found", "Adjust filters or run a fresh scan to populate this view.") }}
+  {% endif %}
+</section>
+{% endblock %}

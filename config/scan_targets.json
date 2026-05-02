@@ -1,0 +1,470 @@
+{
+  "cambium": [
+    {
+      "ip": "10.51.0.1",
+      "name": "IONTEL-BONWAS-S1"
+    },
+    {
+      "ip": "10.51.0.2",
+      "name": "IONTEL-BONWAS-S2"
+    },
+    {
+      "ip": "10.51.0.3",
+      "name": "IONTEL-BONWAS-S3"
+    },
+    {
+      "ip": "10.51.0.4",
+      "name": "IONTEL-BONWAS-S4"
+    },
+    {
+      "ip": "10.51.0.33",
+      "name": "IONTEL-ALHADBA-S1"
+    },
+    {
+      "ip": "10.51.0.34",
+      "name": "IONTEL-ALHADBA-S2"
+    },
+    {
+      "ip": "10.51.0.35",
+      "name": "IONTEL-ALHADBA-S3"
+    },
+    {
+      "ip": "10.51.0.36",
+      "name": "IONTEL-ALHADBA-S4"
+    },
+    {
+      "ip": "10.51.0.65",
+      "name": "IONTEL-TAJOURA-S1"
+    },
+    {
+      "ip": "10.51.0.66",
+      "name": "IONTEL-TAJOURA-S2"
+    },
+    {
+      "ip": "10.51.0.67",
+      "name": "IONTEL-TAJOURA-S3"
+    },
+    {
+      "ip": "10.51.0.68",
+      "name": "IONTEL-TAJOURA-S4"
+    },
+    {
+      "ip": "10.51.4.1",
+      "name": "IONTEL-JANZOUR-S1"
+    },
+    {
+      "ip": "10.51.4.2",
+      "name": "IONTEL-JANZOUR-S2"
+    },
+    {
+      "ip": "10.51.4.3",
+      "name": "IONTEL-JANZOUR-S3"
+    },
+    {
+      "ip": "10.51.4.4",
+      "name": "IONTEL-JANZOUR-S4"
+    },
+    {
+      "ip": "10.51.4.33",
+      "name": "IONTEL-DREIBI-S1"
+    },
+    {
+      "ip": "10.51.4.34",
+      "name": "IONTEL-DREIBI-S2"
+    },
+    {
+      "ip": "10.51.4.35",
+      "name": "IONTEL-DREIBI-S3"
+    },
+    {
+      "ip": "10.51.4.36",
+      "name": "IONTEL-DREIBI-S4"
+    },
+    {
+      "ip": "10.51.4.65",
+      "name": "IONTEL-ALMAARI-S1"
+    },
+    {
+      "ip": "10.51.4.66",
+      "name": "IONTEL-ALMAARI-S2"
+    },
+    {
+      "ip": "10.51.4.67",
+      "name": "IONTEL-ALMAARI-S3"
+    },
+    {
+      "ip": "10.51.4.68",
+      "name": "IONTEL-ALMAARI-S4"
+    },
+    {
+      "ip": "10.51.4.97",
+      "name": "IONTEL-ALZUHUR-S1"
+    },
+    {
+      "ip": "10.51.4.98",
+      "name": "IONTEL-ALZUHUR-S2"
+    },
+    {
+      "ip": "10.51.4.99",
+      "name": "IONTEL-ALZUHUR-S3"
+    },
+    {
+      "ip": "10.51.4.100",
+      "name": "IONTEL-ALZUHUR-S4"
+    },
+    {
+      "ip": "10.51.8.33",
+      "name": "IONTEL-AIRPORT-RD-S1"
+    },
+    {
+      "ip": "10.51.8.34",
+      "name": "IONTEL-AIRPORT-RD-S2"
+    },
+    {
+      "ip": "10.51.8.35",
+      "name": "IONTEL-AIRPORT-RD-S3"
+    },
+    {
+      "ip": "10.51.8.36",
+      "name": "IONTEL-AIRPORT-RD-S4"
+    },
+    {
+      "ip": "10.51.8.129",
+      "name": "IONTEL-SALAHELDEIN-S1"
+    },
+    {
+      "ip": "10.51.8.130",
+      "name": "IONTEL-SALAHELDEIN-S2"
+    },
+    {
+      "ip": "10.51.8.131",
+      "name": "IONTEL-SALAHELDEIN-S3"
+    },
+    {
+      "ip": "10.51.8.132",
+      "name": "IONTEL-SALAHELDEIN-S4"
+    },
+    {
+      "ip": "10.51.8.97",
+      "name": "IONTEL-ALHANI-S1"
+    },
+    {
+      "ip": "10.51.8.98",
+      "name": "IONTEL-ALHANI-S2"
+    },
+    {
+      "ip": "10.51.8.99",
+      "name": "IONTEL-ALHANI-S13"
+    },
+    {
+      "ip": "10.51.8.100",
+      "name": "IONTEL-ALHANI-S4"
+    },
+    {
+      "ip": "10.51.4.129",
+      "name": "IONTEL-ALSRAAJ-S1"
+    },
+    {
+      "ip": "10.51.4.130",
+      "name": "IONTEL-ALSRAAJ-S2"
+    },
+    {
+      "ip": "10.51.4.131",
+      "name": "IONTEL-ALSRAAJ-S3"
+    },
+    {
+      "ip": "10.51.4.132",
+      "name": "IONTEL-ALSRAAJ-S4"
+    },
+    {
+      "ip": "10.51.8.1",
+      "name": "IONTEL-AINZARA-S1"
+    },
+    {
+      "ip": "10.51.8.2",
+      "name": "IONTEL-AINZARA-S2"
+    },
+    {
+      "ip": "10.51.8.3",
+      "name": "IONTEL-AINZARA-S3"
+    },
+    {
+      "ip": "10.51.8.4",
+      "name": "IONTEL-AINZARA-S4"
+    },
+    {
+      "ip": "10.51.12.65",
+      "name": "IONTEL-ARADA-S1"
+    },
+    {
+      "ip": "10.51.12.66",
+      "name": "IONTEL-ARADA-S2"
+    },
+    {
+      "ip": "10.51.12.67",
+      "name": "IONTEL-ARADA-S3"
+    },
+    {
+      "ip": "10.51.12.68",
+      "name": "IONTEL-ARADA-S4"
+    },
+    {
+      "ip": "10.51.8.65",
+      "name": "IONTEL-BENASHOOR-S1"
+    },
+    {
+      "ip": "10.51.8.66",
+      "name": "IONTEL-BENASHOOR-S2"
+    },
+    {
+      "ip": "10.51.8.67",
+      "name": "IONTEL-BENASHOOR-S3"
+    },
+    {
+      "ip": "10.51.8.68",
+      "name": "IONTEL-BENASHOOR-S4"
+    },
+    {
+      "ip": "10.51.0.97",
+      "name": "IONTEL-HT-S1"
+    },
+    {
+      "ip": "10.51.0.98",
+      "name": "IONTEL-HT-S2"
+    },
+    {
+      "ip": "10.51.0.99",
+      "name": "IONTEL-HT-S3"
+    },
+    {
+      "ip": "10.51.0.100",
+      "name": "IONTEL-HT-S4"
+    }
+  ],
+  "ubiquiti": [
+    {
+      "ip": "10.51.0.5",
+      "name": "IONTEL-BONWAS-S1EXT"
+    },
+    {
+      "ip": "10.51.0.6",
+      "name": "IONTEL-BONWAS-S2EXT"
+    },
+    {
+      "ip": "10.51.0.7",
+      "name": "IONTEL-BONWAS-S3EXT"
+    },
+    {
+      "ip": "10.51.0.8",
+      "name": "IONTEL-BONWAS-S4EXT"
+    },
+    {
+      "ip": "10.51.0.37",
+      "name": "IONTEL-ALHADBA-S1EXT"
+    },
+    {
+      "ip": "10.51.0.38",
+      "name": "IONTEL-ALHADBA-S2EXT"
+    },
+    {
+      "ip": "10.51.0.39",
+      "name": "IONTEL-ALHADBA-S3EXT"
+    },
+    {
+      "ip": "10.51.0.40",
+      "name": "IONTEL-ALHADBA-S4EXT"
+    },
+    {
+      "ip": "10.51.0.69",
+      "name": "IONTEL-TAJOURA-S1EXT"
+    },
+    {
+      "ip": "10.51.0.70",
+      "name": "IONTEL-TAJOURA-S2EXT"
+    },
+    {
+      "ip": "10.51.0.71",
+      "name": "IONTEL-TAJOURA-S3EXT"
+    },
+    {
+      "ip": "10.51.0.72",
+      "name": "IONTEL-TAJOURA-S4EXT"
+    },
+    {
+      "ip": "10.51.4.5",
+      "name": "IONTEL-JANZOUR-S1EXT"
+    },
+    {
+      "ip": "10.51.4.6",
+      "name": "IONTEL-JANZOUR-S2EXT"
+    },
+    {
+      "ip": "10.51.4.7",
+      "name": "IONTEL-JANZOUR-S3EXT"
+    },
+    {
+      "ip": "10.51.4.8",
+      "name": "IONTEL-JANZOUR-S4EXT"
+    },
+    {
+      "ip": "10.51.4.37",
+      "name": "IONTEL-DREIBI-S1EXT"
+    },
+    {
+      "ip": "10.51.4.38",
+      "name": "IONTEL-DREIBI-S2EXT"
+    },
+    {
+      "ip": "10.51.4.39",
+      "name": "IONTEL-DREIBI-S3EXT"
+    },
+    {
+      "ip": "10.51.4.40",
+      "name": "IONTEL-DREIBI-S4EXT"
+    },
+    {
+      "ip": "10.51.4.69",
+      "name": "IONTEL-ALMAARI-S1EXT"
+    },
+    {
+      "ip": "10.51.4.70",
+      "name": "IONTEL-ALMAARI-S2EXT"
+    },
+    {
+      "ip": "10.51.4.71",
+      "name": "IONTEL-ALMAARI-S3EXT"
+    },
+    {
+      "ip": "10.51.4.72",
+      "name": "IONTEL-ALMAARI-S4EXT"
+    },
+    {
+      "ip": "10.51.4.101",
+      "name": "IONTEL-ALZUHUR-S1EXT"
+    },
+    {
+      "ip": "10.51.4.102",
+      "name": "IONTEL-ALZUHUR-S2EXT"
+    },
+    {
+      "ip": "10.51.4.103",
+      "name": "IONTEL-ALZUHUR-S3EXT"
+    },
+    {
+      "ip": "10.51.4.104",
+      "name": "IONTEL-ALZUHUR-S4EXT"
+    },
+    {
+      "ip": "10.51.8.37",
+      "name": "IONTEL-AIRPORT-RD-S1EXT"
+    },
+    {
+      "ip": "10.51.8.38",
+      "name": "IONTEL-AIRPORT-RD-S2EXT"
+    },
+    {
+      "ip": "10.51.8.39",
+      "name": "IONTEL-AIRPORT-RD-S3EXT"
+    },
+    {
+      "ip": "10.51.8.40",
+      "name": "IONTEL-AIRPORT-RD-S4EXT"
+    },
+    {
+      "ip": "10.51.8.135",
+      "name": "IONTEL-SALAHELDEIN-S1EXT"
+    },
+    {
+      "ip": "10.51.8.136",
+      "name": "IONTEL-SALAHELDEIN-S2EXT"
+    },
+    {
+      "ip": "10.51.8.137",
+      "name": "IONTEL-SALAHELDEIN-S3EXT"
+    },
+    {
+      "ip": "10.51.8.138",
+      "name": "IONTEL-SALAHELDEIN-S4EXT"
+    },
+    {
+      "ip": "10.51.8.101",
+      "name": "IONTEL-ALHANI-S1EXT"
+    },
+    {
+      "ip": "10.51.8.102",
+      "name": "IONTEL-ALHANI-S2EXT"
+    },
+    {
+      "ip": "10.51.8.103",
+      "name": "IONTEL-ALHANI-S3EXT"
+    },
+    {
+      "ip": "10.51.8.104",
+      "name": "IONTEL-ALHANI-S4EXT"
+    },
+    {
+      "ip": "10.51.4.133",
+      "name": "IONTEL-ALSRAAJ-S1EXT"
+    },
+    {
+      "ip": "10.51.4.134",
+      "name": "IONTEL-ALSRAAJ-S2EXT"
+    },
+    {
+      "ip": "10.51.4.135",
+      "name": "IONTEL-ALSRAAJ-S3EXT"
+    },
+    {
+      "ip": "10.51.4.136",
+      "name": "IONTEL-ALSRAAJ-S4EXT"
+    },
+    {
+      "ip": "10.51.8.5",
+      "name": "IONTEL-AINZARA-S1EXT"
+    },
+    {
+      "ip": "10.51.8.6",
+      "name": "IONTEL-AINZARA-S2EXT"
+    },
+    {
+      "ip": "10.51.8.7",
+      "name": "IONTEL-AINZARA-S3EXT"
+    },
+    {
+      "ip": "10.51.8.8",
+      "name": "IONTEL-AINZARA-S4EXT"
+    },
+    {
+      "ip": "10.51.12.69",
+      "name": "IONTEL-ARADA-S1EXT"
+    },
+    {
+      "ip": "10.51.12.70",
+      "name": "IONTEL-ARADA-S2EXT"
+    },
+    {
+      "ip": "10.51.12.71",
+      "name": "IONTEL-ARADA-S3EXT"
+    },
+    {
+      "ip": "10.51.12.72",
+      "name": "IONTEL-ARADA-S4EXT"
+    },
+    {
+      "ip": "10.51.8.69",
+      "name": "IONTEL-BENASHOOR-S1EXT"
+    },
+    {
+      "ip": "10.51.8.70",
+      "name": "IONTEL-BENASHOOR-S2EXT"
+    },
+    {
+      "ip": "10.51.8.71",
+      "name": "IONTEL-BENASHOOR-S3EXT"
+    },
+    {
+      "ip": "10.51.8.72",
+      "name": "IONTEL-BENASHOOR-S4EXT"
+    }
+  ]
+}

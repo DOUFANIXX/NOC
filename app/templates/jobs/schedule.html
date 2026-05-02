@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}Scan Schedule | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Operations{% endblock %}
+{% block page_title %}Daily Scan Schedule{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Set an exact daily scan time for Cambium and Ubiquiti inventory imports.</p>{% endblock %}
+
+{% block content %}
+{% if page_feedback %}
+{{ ui.banner(page_feedback.title, page_feedback.message, page_feedback.tone) }}
+{% endif %}
+{% if not scheduler_enabled %}
+{{ ui.banner("Scheduler disabled", "Daily schedule times are saved, but no automatic scans will run until the app is restarted with scheduling enabled. The runtime flag is currently off, so the background worker is not checking the schedule.", "danger") }}
+{% endif %}
+
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Daily Automation</div>
+        <div class="surface__title">One exact time per vendor</div>
+        <p class="hero-panel__lead">When a daily schedule is enabled, the background worker will queue that vendor once per day at the configured local server time. If the app was down at that moment, it will catch up after startup once the scheduled time has already passed.</p>
+      </div>
+      {{ ui.badge('Operator+', 'warning') }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Scheduler Runtime", "Enabled" if scheduler_enabled else "Disabled", "Tick interval: " ~ scheduler_tick_seconds ~ " seconds", "success" if scheduler_enabled else "danger") }}
+      {% for schedule in schedules %}
+      {{ ui.mini_stat(schedule.vendor|title, schedule.daily_time or 'Disabled', 'Next run: ' ~ humanize_timestamp(schedule.next_run_at), 'success' if schedule.enabled else 'neutral') }}
+      {% endfor %}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Behavior</div>
+      <div class="surface__title">How the scheduler decides</div>
+      <div class="surface__meta">Daily schedules take priority over the old interval-based scheduler for that vendor.</div>
+    </div>
+    <div class="context-list">
+      <div class="context-list__item">
+        <strong>Local server time</strong>
+        <span>Times on this page follow the timezone of the machine running the app.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>One run per day</strong>
+        <span>The scheduler will not queue the same vendor again once a scan job already exists after that day’s scheduled time.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Readiness still applies</strong>
+        <span>Targets, credentials, and queue state must still allow a scan before a scheduled run can start.</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<section class="section-grid">
+  {% for schedule in schedules %}
+  {% set errors = form_errors.get(schedule.vendor, {}) %}
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">{{ schedule.vendor|title }}</div>
+        <div class="surface__title">{{ schedule.vendor|title }} daily schedule</div>
+        <div class="surface__meta">
+          {% if schedule.enabled %}
+          Enabled at {{ schedule.daily_time }}. Next run {{ humanize_timestamp(schedule.next_run_at) }}.
+          {% else %}
+          Daily schedule disabled. Interval-based scheduling remains the fallback.
+          {% endif %}
+        </div>
+      </div>
+      {{ ui.badge('Due now' if schedule.due_now else ('Enabled' if schedule.enabled else 'Disabled'), 'warning' if schedule.due_now else ('success' if schedule.enabled else 'neutral')) }}
+    </div>
+
+    <form method="post" class="stack">
+      {{ csrf_input() }}
+      <input type="hidden" name="vendor" value="{{ schedule.vendor }}">
+      <label class="field">
+        <span>
+          <input type="checkbox" name="enabled" {% if schedule.enabled %}checked{% endif %}>
+          Enable daily schedule
+        </span>
+      </label>
+      <label class="field">
+        <span>Daily time</span>
+        <input type="time" name="daily_time" value="{{ schedule.daily_time }}" class="{% if errors.daily_time %}input-invalid{% endif %}">
+        {% if errors.daily_time %}<span class="helper-text helper-text-error">{{ errors.daily_time }}</span>{% endif %}
+      </label>
+      <button class="button button-primary" type="submit">Save {{ schedule.vendor|title }} Schedule</button>
+    </form>
+
+    <div class="context-list" style="margin-top: 16px;">
+      <div class="context-list__item">
+        <strong>Last update</strong>
+        <span>{{ humanize_timestamp(schedule.updated_at) }}</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Last scan job</strong>
+        <span>{% if schedule.last_job %}#{{ schedule.last_job.id }} via {{ schedule.last_job.trigger_source }} on {{ humanize_timestamp(schedule.last_job.created_at) }}{% else %}No scan jobs yet{% endif %}</span>
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

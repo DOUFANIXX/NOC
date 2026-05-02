@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% import "components/ui.html" as ui with context %}
+
+{% block title %}User Admin | {{ config.APP_NAME }}{% endblock %}
+{% block page_kicker %}Administration{% endblock %}
+{% block page_title %}User Administration{% endblock %}
+{% block page_subtitle %}<p class="page-subtitle">Create read-only, operator, and full-access accounts for the console.</p>{% endblock %}
+
+{% block content %}
+{% if page_feedback %}
+{{ ui.banner(page_feedback.title, page_feedback.message, page_feedback.tone) }}
+{% endif %}
+
+<section class="hero-grid">
+  <article class="surface hero-panel">
+    <div class="hero-panel__title-row">
+      <div>
+        <div class="surface__eyebrow">Access Control</div>
+        <div class="surface__title">Assign the right level of access</div>
+        <p class="hero-panel__lead">Use viewer accounts for read-only inventory and switch inspection, operator accounts for scan and change workflows, and admin accounts for full access including inventory and user administration.</p>
+      </div>
+      {{ ui.badge("Admin Only", "danger") }}
+    </div>
+    <div class="hero-panel__metrics">
+      {{ ui.mini_stat("Users", user_summary.total, "All local console accounts.", "info") }}
+      {{ ui.mini_stat("Active", user_summary.active, "Accounts currently allowed to sign in.", "success") }}
+      {{ ui.mini_stat("Viewers", user_summary.viewers, "Read-only inventory and inspection access.", "neutral") }}
+      {{ ui.mini_stat("Admins", user_summary.admins, "Full access accounts.", "danger") }}
+    </div>
+  </article>
+
+  <aside class="surface rail-panel">
+    <div>
+      <div class="surface__eyebrow">Role Guide</div>
+      <div class="surface__title">What each role can do</div>
+      <div class="surface__meta">Choose the smallest permission set that still lets the user do their job.</div>
+    </div>
+    <div class="context-list">
+      <div class="context-list__item">
+        <strong>Viewer</strong>
+        <span>Can open Cambium and Ubiquiti inventory pages and switch inspection pages, but cannot run scans or edit switch inventory.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Operator</strong>
+        <span>Can do everything a viewer can, plus run scans and use the port change workflow.</span>
+      </div>
+      <div class="context-list__item">
+        <strong>Admin</strong>
+        <span>Full access including switch inventory administration and user administration.</span>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<section class="section-grid">
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Create User</div>
+        <div class="surface__title">Add account</div>
+        <div class="surface__meta">Create a local sign-in with the exact role the team member needs.</div>
+      </div>
+      {{ ui.badge("Admin Only", "danger") }}
+    </div>
+    <form method="post" class="stack">
+      {{ csrf_input() }}
+      <input type="hidden" name="action" value="create">
+      <label class="field">
+        <span>Username</span>
+        <input type="text" name="username" required value="{{ form_data.username }}" class="{% if form_errors.username %}input-invalid{% endif %}">
+        {% if form_errors.username %}<span class="helper-text helper-text-error">{{ form_errors.username }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Role</span>
+        <select name="role" required class="{% if form_errors.role %}input-invalid{% endif %}">
+          <option value="viewer" {% if form_data.role == 'viewer' %}selected{% endif %}>Viewer</option>
+          <option value="operator" {% if form_data.role == 'operator' %}selected{% endif %}>Operator</option>
+          <option value="admin" {% if form_data.role == 'admin' %}selected{% endif %}>Admin</option>
+        </select>
+        {% if form_errors.role %}<span class="helper-text helper-text-error">{{ form_errors.role }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Theme</span>
+        <select name="ui_preference" required class="{% if form_errors.ui_preference %}input-invalid{% endif %}">
+          <option value="dark" {% if form_data.ui_preference == 'dark' %}selected{% endif %}>Black + Blue</option>
+          <option value="light" {% if form_data.ui_preference == 'light' %}selected{% endif %}>White + Red</option>
+        </select>
+        <span class="helper-text">Every account keeps the same UI layout and can switch colors later from the app header.</span>
+        {% if form_errors.ui_preference %}<span class="helper-text helper-text-error">{{ form_errors.ui_preference }}</span>{% endif %}
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input type="password" name="password" required class="{% if form_errors.password %}input-invalid{% endif %}">
+        {% if form_errors.password %}<span class="helper-text helper-text-error">{{ form_errors.password }}</span>{% endif %}
+      </label>
+      <button class="button button-primary" type="submit">Create User</button>
+    </form>
+  </article>
+
+  <article class="surface">
+    <div class="surface__header">
+      <div>
+        <div class="surface__eyebrow">Current Users</div>
+        <div class="surface__title">Managed accounts</div>
+        <div class="surface__meta">{{ user_summary.total }} local users configured for this console.</div>
+      </div>
+    </div>
+    <div class="record-grid">
+      {% for user in users %}
+      <article class="record-card">
+        <div class="record-card__header">
+          <div>
+            <div class="record-card__title">{{ user.username }}</div>
+            <div class="record-card__meta">{% if user.id == current_user.id %}Current session{% else %}Local account{% endif %}</div>
+          </div>
+          <div class="record-card__badge-row">
+            {{ ui.badge(user.role, user.role) }}
+            {{ ui.badge('Active' if user.is_active else 'Disabled', 'success' if user.is_active else 'warning') }}
+          </div>
+        </div>
+        <div class="record-card__facts">
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Created</div>
+            <div class="record-card__fact-value">{{ humanize_timestamp(user.created_at) }}</div>
+          </div>
+          <div class="record-card__fact">
+            <div class="record-card__fact-label">Theme</div>
+            <div class="record-card__fact-value">{{ "White + Red" if user.ui_preference == "light" else "Black + Blue" }}</div>
+          </div>
+        </div>
+        <div class="record-card__actions">
+          <form method="post">
+            {{ csrf_input() }}
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            {% if user.is_active %}
+            <input type="hidden" name="action" value="deactivate">
+            <button class="button button-danger button-small" type="submit" {% if user.id == current_user.id %}disabled{% endif %}>Disable</button>
+            {% else %}
+            <input type="hidden" name="action" value="activate">
+            <button class="button button-secondary button-small" type="submit">Enable</button>
+            {% endif %}
+          </form>
+          {% if not user.is_active %}
+          <form method="post">
+            {{ csrf_input() }}
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <input type="hidden" name="action" value="delete">
+            <button class="button button-danger button-small" type="submit" {% if user.id == current_user.id %}disabled{% endif %}>Delete</button>
+          </form>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {{ ui.pagination(pager) }}
+  </article>
+</section>
+{% endblock %}

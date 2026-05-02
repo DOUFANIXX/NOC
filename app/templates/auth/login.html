@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In | Network Operations Console</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body class="login-body">
+  <main class="login-shell">
+    <section class="login-panel">
+      <div class="eyebrow">Internal access</div>
+      <h1>Network Operations Console</h1>
+      <p class="muted">Unified visibility for subscriber inventory, switch inspection, and controlled operational changes.</p>
+      {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+      <form method="post" class="stack">
+        {{ csrf_input() }}
+        <label class="field">
+          <span>Username</span>
+          <input type="text" name="username" autocomplete="username" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit" class="button button-primary">Sign in</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
