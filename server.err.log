@@ -1,0 +1,245 @@
+[2026-04-23 19:23:46,513] INFO in job_runner: Queued scan job #1 for vendor=ubiquiti trigger=manual requested_by=1
+[2026-04-23 19:23:46,548] INFO in job_runner: Starting scan job #1 for vendor=ubiquiti target_count=56
+[2026-04-23 19:38:24,620] INFO in job_runner: Queued scan job #2 for vendor=cambium trigger=manual requested_by=1
+[2026-04-23 19:38:24,678] INFO in job_runner: Starting scan job #2 for vendor=cambium target_count=60
+[2026-04-23 19:43:02,455] WARNING in cambium_service: Cambium scan task failed for 10.51.0.1: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,458] WARNING in cambium_service: Cambium scan task failed for 10.51.0.2: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,459] WARNING in cambium_service: Cambium scan task failed for 10.51.0.3: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,459] WARNING in cambium_service: Cambium scan task failed for 10.51.0.4: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,460] WARNING in cambium_service: Cambium scan task failed for 10.51.0.33: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,460] WARNING in cambium_service: Cambium scan task failed for 10.51.0.34: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,461] WARNING in cambium_service: Cambium scan task failed for 10.51.0.35: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,461] WARNING in cambium_service: Cambium scan task failed for 10.51.0.36: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,462] WARNING in cambium_service: Cambium scan task failed for 10.51.0.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,462] WARNING in cambium_service: Cambium scan task failed for 10.51.0.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,463] WARNING in cambium_service: Cambium scan task failed for 10.51.0.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,463] WARNING in cambium_service: Cambium scan task failed for 10.51.0.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,464] WARNING in cambium_service: Cambium scan task failed for 10.51.4.1: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,464] WARNING in cambium_service: Cambium scan task failed for 10.51.4.2: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,465] WARNING in cambium_service: Cambium scan task failed for 10.51.4.3: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,465] WARNING in cambium_service: Cambium scan task failed for 10.51.4.4: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,466] WARNING in cambium_service: Cambium scan task failed for 10.51.4.33: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,466] WARNING in cambium_service: Cambium scan task failed for 10.51.4.34: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,467] WARNING in cambium_service: Cambium scan task failed for 10.51.4.35: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,468] WARNING in cambium_service: Cambium scan task failed for 10.51.4.36: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,468] WARNING in cambium_service: Cambium scan task failed for 10.51.4.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,469] WARNING in cambium_service: Cambium scan task failed for 10.51.4.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,469] WARNING in cambium_service: Cambium scan task failed for 10.51.4.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,470] WARNING in cambium_service: Cambium scan task failed for 10.51.4.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,470] WARNING in cambium_service: Cambium scan task failed for 10.51.4.97: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,471] WARNING in cambium_service: Cambium scan task failed for 10.51.4.98: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,471] WARNING in cambium_service: Cambium scan task failed for 10.51.4.99: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,472] WARNING in cambium_service: Cambium scan task failed for 10.51.4.100: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,472] WARNING in cambium_service: Cambium scan task failed for 10.51.8.33: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,473] WARNING in cambium_service: Cambium scan task failed for 10.51.8.34: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,474] WARNING in cambium_service: Cambium scan task failed for 10.51.8.35: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,474] WARNING in cambium_service: Cambium scan task failed for 10.51.8.36: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,475] WARNING in cambium_service: Cambium scan task failed for 10.51.8.129: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,476] WARNING in cambium_service: Cambium scan task failed for 10.51.8.130: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,476] WARNING in cambium_service: Cambium scan task failed for 10.51.8.131: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,477] WARNING in cambium_service: Cambium scan task failed for 10.51.8.132: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,477] WARNING in cambium_service: Cambium scan task failed for 10.51.8.97: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,478] WARNING in cambium_service: Cambium scan task failed for 10.51.8.98: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,478] WARNING in cambium_service: Cambium scan task failed for 10.51.8.99: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,479] WARNING in cambium_service: Cambium scan task failed for 10.51.8.100: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,479] WARNING in cambium_service: Cambium scan task failed for 10.51.4.129: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,479] WARNING in cambium_service: Cambium scan task failed for 10.51.4.130: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,480] WARNING in cambium_service: Cambium scan task failed for 10.51.4.131: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,480] WARNING in cambium_service: Cambium scan task failed for 10.51.4.132: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,481] WARNING in cambium_service: Cambium scan task failed for 10.51.8.1: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,481] WARNING in cambium_service: Cambium scan task failed for 10.51.8.2: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,481] WARNING in cambium_service: Cambium scan task failed for 10.51.8.3: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,482] WARNING in cambium_service: Cambium scan task failed for 10.51.8.4: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,482] WARNING in cambium_service: Cambium scan task failed for 10.51.12.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,482] WARNING in cambium_service: Cambium scan task failed for 10.51.12.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,483] WARNING in cambium_service: Cambium scan task failed for 10.51.12.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,483] WARNING in cambium_service: Cambium scan task failed for 10.51.12.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,483] WARNING in cambium_service: Cambium scan task failed for 10.51.8.65: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,484] WARNING in cambium_service: Cambium scan task failed for 10.51.8.66: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,484] WARNING in cambium_service: Cambium scan task failed for 10.51.8.67: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,485] WARNING in cambium_service: Cambium scan task failed for 10.51.8.68: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,485] WARNING in cambium_service: Cambium scan task failed for 10.51.0.97: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,486] WARNING in cambium_service: Cambium scan task failed for 10.51.0.98: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,486] WARNING in cambium_service: Cambium scan task failed for 10.51.0.99: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,487] WARNING in cambium_service: Cambium scan task failed for 10.51.0.100: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("link", name="M Monitor")
+
+[2026-04-23 19:43:02,497] INFO in job_runner: Completed scan job #2 for vendor=cambium processed=0 successful_targets=0 failed_targets=60
